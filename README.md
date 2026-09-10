@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dhrupad Paul — Portfolio
 
-## Getting Started
+A production-ready portfolio built with Next.js App Router, TypeScript, Tailwind CSS,
+React Three Fiber, Motion, and Lucide React. Personal information, skills, education,
+experience, and projects are kept in centralized typed data.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open the local URL printed by Next.js.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local` and replace only the values needed for your
+environment.
 
-## Learn More
+- `NEXT_PUBLIC_SITE_URL` — canonical production URL used by metadata, sitemap, and robots.
+- `RESEND_API_KEY` — server-only Resend API key.
+- `CONTACT_FROM_EMAIL` — sender on a verified Resend domain.
+- `CONTACT_TO_EMAIL` — destination for portfolio messages.
 
-To learn more about Next.js, take a look at the following resources:
+Without the three contact-delivery variables, the contact endpoint returns a safe
+configuration error and the interface keeps the direct email option available. Never
+commit `.env.local` or real credentials.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Quality checks
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run lint
+npm run build
+```
 
-## Deploy on Vercel
+There is currently no automated test script; production checks use linting, the
+Next.js build, API route checks, and browser interaction testing.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Architecture
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app` — routes, metadata, SEO resources, contact Route Handler, and global styles
+- `src/components/layout` — navigation, footer, and page-layout primitives
+- `src/components/sections` — homepage sections and interactive section clients
+- `src/components/project` — data-driven project gallery and case-study presentation
+- `src/components/three` — lazy, demand-rendered project gallery scene and fallback
+- `src/data` — centralized, typed portfolio content
+- `src/lib` — validation, URLs, site metadata, and shared helpers
+- `src/types` — shared portfolio data contracts
+- `public/resume` — downloadable résumé
+
+## Deploying to Vercel
+
+1. Push the repository to a Git provider and import it into Vercel.
+2. Keep the detected framework preset as Next.js and the default build command (`npm run build`).
+3. Configure `NEXT_PUBLIC_SITE_URL` with the final HTTPS domain.
+4. Configure the three server-only contact variables if form delivery is required.
+5. Deploy, then verify the homepage, project case study, résumé, contact path, metadata,
+   sitemap, robots, 404 page, and responsive gallery.
+
+No custom Vercel configuration is required. The project uses standard Next.js static
+assets, Route Handlers, and statically generated project case-study routes.
