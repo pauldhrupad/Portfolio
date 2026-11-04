@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 
 type Theme = "light" | "dark" | "system";
 type ResolvedTheme = Exclude<Theme, "system">;
@@ -27,40 +27,51 @@ function resolveTheme(theme: Theme, prefersDark: boolean): ResolvedTheme {
 }
 
 function applyTheme(theme: ResolvedTheme) {
-  document.documentElement.dataset.theme = theme;
-  document.documentElement.style.colorScheme = theme;
+  const root = document.documentElement;
+  root.dataset.theme = theme;
+  const color = getComputedStyle(root).getPropertyValue("--background").trim();
   document
     .querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')
-    .forEach((meta) => meta.setAttribute("content", theme === "dark" ? "#171b24" : "#e9eff6"));
+    .forEach((meta) => meta.setAttribute("content", color));
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("system");
   const [resolved, setResolved] = useState<ResolvedTheme>("light");
+  const preference = useRef<Theme>("system");
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-color-scheme: dark)");
 
     const apply = () => {
-      const choice = getStoredTheme();
+      const choice = preference.current;
       const next = resolveTheme(choice, query.matches);
       applyTheme(next);
       setTheme(choice);
       setResolved(next);
     };
 
-    apply();
+    const syncStoredPreference = () => {
+      preference.current = getStoredTheme();
+      apply();
+    };
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === "portfolio-theme" || event.key === null) syncStoredPreference();
+    };
+
+    syncStoredPreference();
     query.addEventListener("change", apply);
-    window.addEventListener("storage", apply);
+    window.addEventListener("storage", handleStorage);
 
     return () => {
       query.removeEventListener("change", apply);
-      window.removeEventListener("storage", apply);
+      window.removeEventListener("storage", handleStorage);
     };
   }, []);
 
   function choose(next: Theme) {
     const value = resolveTheme(next, window.matchMedia("(prefers-color-scheme: dark)").matches);
+    preference.current = next;
 
     try {
       if (next === "system") {

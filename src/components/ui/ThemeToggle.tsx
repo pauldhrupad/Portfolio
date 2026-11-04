@@ -1,35 +1,34 @@
 "use client";
-import { Moon, Sun, Monitor } from "lucide-react";
+
+import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "@/components/layout/ThemeProvider";
+import { Button } from "./Button";
 
 export function ThemeToggle() {
   const { theme, resolved, setTheme } = useTheme();
 
   return (
-    <div aria-label="Theme controls" className="theme-controls" role="group">
-      <button
+    <div aria-label="Theme controls" className="flex shrink-0 items-center" role="group">
+      <Button
         aria-checked={resolved === "dark"}
-        aria-label={resolved === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-        className="theme-switch"
-        data-mode={resolved}
+        aria-label="Dark mode"
         onClick={() => setTheme(resolved === "dark" ? "light" : "dark")}
         role="switch"
-        type="button"
+        title="Toggle dark mode"
+        variant="icon"
       >
-        <Sun aria-hidden="true" className="theme-sun" size={16} />
-        <Moon aria-hidden="true" className="theme-moon" size={16} />
-        <span aria-hidden="true" className="theme-knob" />
-      </button>
-      <button
+        <Sun aria-hidden="true" className="theme-sun size-4" />
+        <Moon aria-hidden="true" className="theme-moon size-4" />
+      </Button>
+      <Button
         aria-label="Use system theme"
         aria-pressed={theme === "system"}
-        className="theme-system"
         onClick={() => setTheme("system")}
-        title={theme === "system" ? "Following system theme" : "Use system theme"}
-        type="button"
+        title="Use system theme"
+        variant="icon"
       >
-        <Monitor aria-hidden="true" size={16} />
-      </button>
+        <Monitor aria-hidden="true" className="size-4" />
+      </Button>
     </div>
   );
 }

@@ -52,11 +52,13 @@ export const metadata: Metadata = {
   },
 };
 
+const themeColors = { light: "#f5f6f9", dark: "#0e1118" } as const;
+
 export const viewport: Viewport = {
   colorScheme: "light dark",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#e9eff6" },
-    { media: "(prefers-color-scheme: dark)", color: "#171b24" },
+    { media: "(prefers-color-scheme: light)", color: themeColors.light },
+    { media: "(prefers-color-scheme: dark)", color: themeColors.dark },
   ],
 };
 
@@ -66,9 +68,8 @@ const themeBootstrapScript = `(function(){
   var dark = theme === "dark" || (theme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
   var resolved = dark ? "dark" : "light";
   document.documentElement.dataset.theme = resolved;
-  document.documentElement.style.colorScheme = resolved;
   document.querySelectorAll('meta[name="theme-color"]').forEach(function(meta){
-    meta.setAttribute("content", dark ? "#171b24" : "#e9eff6");
+    meta.setAttribute("content", dark ? "${themeColors.dark}" : "${themeColors.light}");
   });
 })();`;
 

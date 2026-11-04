@@ -25,12 +25,16 @@ export function SectionHeading({
   return (
     <header className={cn(align === "center" && "mx-auto text-center", className)}>
       {index ? (
-        <p className="mb-4 font-mono text-meta font-medium uppercase tracking-[0.16em] text-accent-primary">
+        <p className="mb-[var(--space-md)] font-mono text-label font-medium uppercase tracking-[0.14em] text-accent-primary">
           {index}
         </p>
       ) : null}
       <Heading
-        className="text-section max-w-4xl text-balance font-semibold leading-[1.02] tracking-[-0.045em] text-text-primary"
+        className={cn(
+          "max-w-4xl text-balance font-semibold tracking-[-0.045em] text-text-primary",
+          headingLevel === "h1" ? "text-display" : headingLevel === "h2" ? "text-section" : "text-card-title",
+          align === "center" && "mx-auto",
+        )}
         id={id}
       >
         {title}
@@ -38,7 +42,7 @@ export function SectionHeading({
       {description ? (
         <p
           className={cn(
-            "mt-5 max-w-2xl text-pretty text-body leading-7 text-text-secondary",
+            "mt-[var(--space-md)] max-w-[62ch] text-pretty text-body text-text-secondary",
             align === "center" && "mx-auto",
           )}
         >

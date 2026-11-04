@@ -16,7 +16,7 @@ export default function NotFound() {
           <p className="font-mono text-sm font-medium uppercase tracking-[0.16em] text-accent-primary">
             404 / NOT FOUND
           </p>
-          <h1 className="mt-5 text-[clamp(2.75rem,8vw,5.5rem)] font-semibold leading-[0.92] tracking-[-0.055em] text-text-primary">
+          <h1 className="mt-5 text-balance text-display font-semibold tracking-[-0.055em] text-text-primary">
             This page doesn&apos;t exist.
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-text-secondary sm:text-lg sm:leading-8">

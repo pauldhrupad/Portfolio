@@ -50,7 +50,7 @@ The AI-Powered Resume Screening System and Farm-Market cards are outside the new
 ## Phase checklist
 
 - [x] **Phase 0 · Preparation.** Review the portfolio and reference code, establish the baseline, create the feature branch, and document the plan.
-- [ ] **Phase 1 · Design foundation.** Update semantic tokens, type, spacing, and shared layout and controls. Verify light, dark, and system behavior, focus, reduced motion, mobile navigation, and 404. Keep the current project data and content routes during this phase.
+- [x] **Phase 1 · Design foundation.** Update semantic tokens, type, spacing, and shared layout and controls. Verify light, dark, and system behavior, focus, reduced motion, mobile navigation, and 404. Keep the current project data and content routes during this phase.
 - [ ] **Phase 2 · Recruiter-facing homepage.** Improve hero hierarchy and résumé/contact discoverability. Apply responsive editorial and bento layouts using the current data and anchors. Keep project information and navigation usable independently of WebGL.
 - [ ] **Phase 3 · Selected work and case studies.** Publish exactly the three documented entries, adapt the typed renderer, and add case-study routes and verified assets where available. Update all consumers of `projects`, including featured links, Developer Presence, metadata, and sitemap.
 - [ ] **Phase 4 · Release verification.** Run the full regression checklist, capture accessibility and performance results, and verify public content, production configuration, and dependency security. Prepare the change for review. Merge or deploy only after explicit approval.

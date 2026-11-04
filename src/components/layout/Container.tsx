@@ -9,7 +9,7 @@ type ContainerProps = {
 
 const sizeStyles = {
   default: "max-w-[var(--container-width)]",
-  narrow: "max-w-4xl",
+  narrow: "max-w-[var(--container-width-narrow)]",
   wide: "max-w-[var(--container-width-wide)]",
 } as const;
 
@@ -22,7 +22,7 @@ export function Container({
   return (
     <div
       className={cn(
-        "mx-auto min-w-0 w-full max-w-full px-[var(--space-gutter)]",
+        "mx-auto w-full min-w-0 px-[var(--space-gutter)]",
         sizeStyles[size],
         className,
       )}
