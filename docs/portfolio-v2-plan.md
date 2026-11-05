@@ -9,7 +9,7 @@ Phase 0 baseline reviewed on 5 November 2026 at `038ee48`. Work is scoped to `fe
 | Runtime and tooling | Next.js 16.3.4 App Router, React 19.2.8, strict TypeScript, Tailwind CSS 4 through PostCSS, Lucide, Motion, Three.js and React Three Fiber. Next config sets the Turbopack root and shared security headers. ESLint uses Next.js Core Web Vitals and TypeScript presets. |
 | App shell and homepage | The root layout loads Geist and Geist Mono with `next/font/google`, wraps the site in `ThemeProvider`, and shares navigation and footer across routes. `/` renders Hero, About, Skills, Projects, Experience, Education, Developer Presence, and Contact. The route and sections are server components with client boundaries for navigation, theme, motion, skills, the gallery, and the form. |
 | Components and data | `src/components/layout` and `src/components/ui` provide shared layout and controls. Section components consume typed content from `src/data`. `src/types/portfolio.ts` defines the content contracts. `src/lib` handles class composition, URL validation, and shared contact validation. The hero, gallery, Developer Presence, case-study route, and sitemap all read the project dataset. |
-| Projects and routes | `Project` holds card copy, technology lists, links and optional media and case-study fields. `/projects/[slug]` statically generates routes for records with a case study. Co-Parenting Coordinator is the sole case study. The shared renderer uses a browser-style illustration and fixed authentication, custody, expense, and audit sections. Unknown slugs use the custom 404. |
+| Projects and routes | `Project` holds card copy, technology lists, links and optional media and case-study fields. `/projects/[slug]` statically generates supported case studies. GharKaBite and Co-Parenting share the renderer, with commerce and coordination sections selected by a typed discriminator. Unknown slugs use the custom 404. |
 | Tokens and responsive layout | `globals.css` defines palette, text, surfaces, spacing, radii, shadows, motion, and type scales with CSS custom properties mapped to Tailwind. The current style uses raised surfaces and glass effects. Fluid type and gutters, responsive grids, and the fixed navigation support smaller screens. The menu switches to a mobile dialog below `xl`. The project gallery stacks its details and shows the CSS fallback below 768 px. |
 | Theme and motion | A pre-paint script and `ThemeProvider` resolve light, dark, and system preferences, persist the choice in `localStorage`, and update the page color scheme and browser theme color. Navigation observes section visibility. Motion supplies entrance and scroll reveals. CSS and Motion respond to reduced-motion preferences. |
 | Three.js | The gallery dynamically imports the canvas with SSR disabled. React Three Fiber renders simple meshes on demand with capped device pixel ratio. A CSS stage remains underneath the canvas. Render errors and WebGL context loss fall back to the stage, and project controls and links are DOM elements. |
@@ -22,7 +22,7 @@ Use the requested hybrid of Dark Tech Studio, Editorial Minimalism, and Bento Da
 
 ## Exact three-project lineup
 
-The gallery follows the supplied reference order. GharKaBite is the featured homepage project and links to its verified demo. Co-Parenting keeps its published case-study URL. The other case-study presentations are scheduled for Phase 4.
+The gallery follows the supplied reference order. GharKaBite is the featured homepage project and links to its published case study. Both GharKaBite and Co-Parenting have case-study routes and verified demo links. The game presentation is scheduled for Phase 4.
 
 | Project | Case-study slug | Evidence and boundaries |
 | --- | --- | --- |
@@ -56,7 +56,7 @@ Phase 2 verification passed lint, the production build and TypeScript checks, da
 
 | Finding | Phase impact |
 | --- | --- |
-| Case-study data now supports coordination, commerce, and game variants with distinct architecture and workflow contracts. The current renderer presents coordination case studies. | Complete the other renderers in Phase 4. A shared publication guard keeps unsupported case studies out of routes, links, and the sitemap. |
+| Case-study data supports coordination, commerce, and game variants with distinct architecture and workflow contracts. The shared renderer presents coordination and commerce case studies. | Complete the game presentation in Phase 4. A shared publication guard keeps unsupported case studies out of routes, links, and the sitemap. |
 | Some Motion wrappers emit content at zero opacity before hydration. The mobile canvas is hidden by CSS while the dynamic component still mounts. Scene colors and browser theme colors are also hard-coded separately from CSS tokens. | Check that core content appears before animation and test script/WebGL failure. Keep 3D off mobile and reduced-motion critical paths. Check all theme surfaces together when changing tokens. |
 | `--radius-xl` is referenced by the custom 404 but missing from the global token definitions. | Resolve the token in the design foundation and verify the 404 in both themes. |
 | The contact limiter is process-local and keys off proxy IP headers. The body is fully read before the actual byte count is checked. | Rate limiting depends on trusted proxy headers and resets per instance. Preserve existing behavior during visual phases and assess the hosting boundary before claiming production abuse protection. |
@@ -73,6 +73,16 @@ Phase 2 verification passed lint, the production build and TypeScript checks, da
 - [ ] **Phase 3 · Recruiter-facing homepage.** Improve hero hierarchy and résumé/contact discoverability. Apply responsive editorial and bento layouts using the selected-project data and existing anchors.
 - [ ] **Phase 4 · Case-study presentation.** Build project-specific presentations for commerce, coordination, and game content, publish supported case-study routes, and add approved screenshots when available.
 - [ ] **Release verification.** Run the full regression checklist, capture accessibility and performance results, and verify public content, production configuration, and dependency security. Merge or deploy only after explicit approval.
+
+### GharKaBite case-study addition
+
+The requested GharKaBite case study is published at `/projects/gharkabite`. The shared template uses commerce-specific order, payment, and subscription sections alongside the existing common sections. The homepage featured link, gallery, metadata, and sitemap consume the shared publication guard.
+
+Content uses the pinned GharKaBite README, manifest, authentication configuration, order and subscription services, payment review routes, and checkout, thali, and delivery tests. Test descriptions report the coverage visible in those files. The reference application tests were inspected. The portfolio checks cover publication and rendering.
+
+The preview remains an explicitly labeled illustration with food-ordering icons. Application screenshots remain a missing asset.
+
+Verification passed lint, the production build, static-route and metadata checks, sitemap assertions, and homepage/gallery navigation to both published case studies. GharKaBite was checked in light and dark themes at 320, 375, 768, 1024, and 1440 px, with an automated accessibility scan. The mobile hero grid uses a zero-minimum column to keep preview content inside the viewport.
 
 ## Accessibility, performance, and verification
 

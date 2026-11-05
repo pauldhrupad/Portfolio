@@ -5,14 +5,14 @@ import { SectionReveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { TechBadge } from "@/components/ui/TechBadge";
-import type { CoordinationCaseStudy, Project } from "@/types/portfolio";
+import type { Project, PublishedCaseStudy } from "@/types/portfolio";
 import { ArchitectureDiagram } from "./ArchitectureDiagram";
 import { CaseStudySection } from "./CaseStudySection";
 import { ProjectBrowserPreview } from "./ProjectBrowserPreview";
 import { WorkflowDiagram } from "./WorkflowDiagram";
 
 type ProjectCaseStudyProps = {
-  project: Project & { caseStudy: CoordinationCaseStudy };
+  project: Project & { caseStudy: PublishedCaseStudy };
 };
 
 export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
@@ -32,7 +32,7 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
           </Link>
         </SectionReveal>
 
-        <div className="mt-8 grid items-center gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(26rem,1.14fr)] lg:gap-16">
+        <div className="mt-8 grid grid-cols-[minmax(0,1fr)] items-center gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(26rem,1.14fr)] lg:gap-16">
           <SectionReveal distance={18}>
             <div className="flex flex-wrap items-center gap-3">
               <Badge variant="accent">{project.category}</Badge>
@@ -162,25 +162,44 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
             </ul>
           </CaseStudySection>
 
-          <CaseStudySection index="07 / SCHEDULING" title="Custody Workflow">
+          <CaseStudySection
+            index={caseStudy.kind === "commerce" ? "07 / ORDERS" : "07 / SCHEDULING"}
+            title={caseStudy.kind === "commerce" ? "Order Workflows" : "Custody Workflow"}
+          >
             <div className="grid gap-4">
-              {caseStudy.custodyWorkflows.map((workflow) => (
+              {(caseStudy.kind === "commerce" ? caseStudy.orderWorkflows : caseStudy.custodyWorkflows).map((workflow) => (
                 <WorkflowDiagram key={workflow.title} workflow={workflow} />
               ))}
             </div>
           </CaseStudySection>
 
-          <CaseStudySection index="08 / EXPENSES" title="Expense States">
-            <div className="grid gap-4">
-              {caseStudy.expenseWorkflows.map((workflow) => (
-                <WorkflowDiagram key={workflow.title} workflow={workflow} />
-              ))}
-            </div>
+          <CaseStudySection
+            index={caseStudy.kind === "commerce" ? "08 / PAYMENTS" : "08 / EXPENSES"}
+            title={caseStudy.kind === "commerce" ? "Manual UPI Verification" : "Expense States"}
+          >
+            {caseStudy.kind === "commerce" ? (
+              <ul className="grid gap-3">
+                {caseStudy.paymentVerification.map((item) => (
+                  <li className="rounded-[var(--radius-md)] border border-border bg-surface/45 p-5 text-base leading-7 text-text-secondary" key={item}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="grid gap-4">
+                {caseStudy.expenseWorkflows.map((workflow) => (
+                  <WorkflowDiagram key={workflow.title} workflow={workflow} />
+                ))}
+              </div>
+            )}
           </CaseStudySection>
 
-          <CaseStudySection index="09 / RECORDS" title="Communication & Audit">
+          <CaseStudySection
+            index={caseStudy.kind === "commerce" ? "09 / PLANS" : "09 / RECORDS"}
+            title={caseStudy.kind === "commerce" ? "Subscription Management" : "Communication & Audit"}
+          >
             <ul className="neu-panel divide-y divide-border rounded-[var(--radius-lg)] border border-border px-5 sm:px-7">
-              {caseStudy.communicationAudit.map((item, index) => (
+              {(caseStudy.kind === "commerce" ? caseStudy.subscriptions : caseStudy.communicationAudit).map((item, index) => (
                 <li className="grid gap-3 py-5 sm:grid-cols-[2rem_1fr]" key={item}>
                   <span className="font-mono text-sm text-accent-primary-soft">
                     {String(index + 1).padStart(2, "0")}
@@ -223,7 +242,10 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
             </dl>
           </CaseStudySection>
 
-          <CaseStudySection index="12 / REFLECTION" title="Lessons Learned">
+          <CaseStudySection
+            index="12 / REFLECTION"
+            title={caseStudy.kind === "commerce" ? "Engineering Decisions" : "Lessons Learned"}
+          >
             <ol className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
               {caseStudy.lessons.map((lesson, index) => (
                 <li className="flex gap-4 text-base leading-7 text-text-secondary" key={lesson}>

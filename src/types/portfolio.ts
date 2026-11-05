@@ -123,6 +123,8 @@ export type ProjectCaseStudy =
       cpuStrategy: string;
     });
 
+export type PublishedCaseStudy = Exclude<ProjectCaseStudy, { kind: "game" }>;
+
 export type Project = {
   slug: string;
   title: string;

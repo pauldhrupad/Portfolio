@@ -39,6 +39,122 @@ export const projects: Project[] = [
       "Subscription management and meal credits, with preview-only plan purchases",
     ],
     status: "prototype",
+    caseStudy: {
+      kind: "commerce",
+      seoDescription:
+        "GharKaBite case study covering customizable thalis, Next.js architecture, MongoDB checkout, kitchen administration, manual UPI verification, and subscription management.",
+      heroSummary:
+        "A Next.js food ordering platform that connects a customizable thali storefront to kitchen operations, persistent order tracking, manual UPI payment review, and subscription management.",
+      context:
+        "GharKaBite is a local food-kitchen prototype with customer and admin interfaces in one Next.js application. Its workflows cover menu configuration, date-specific availability, ordering, payment review, and preparation.",
+      problem:
+        "A configurable meal order combines several changing inputs. Required choices, add-ons, delivery eligibility, kitchen cutoffs, and payment status all affect whether an order can be accepted. The kitchen also needs a consistent record of what was ordered and which actions are still pending.",
+      productGoal:
+        "Connect the storefront and kitchen dashboard through server-validated orders, preserve the selected meal configuration, and make payment review and fulfilment states explicit.",
+      technologyGroups: [
+        { label: "Application", technologies: ["Next.js App Router", "React", "JavaScript"] },
+        { label: "Interface", technologies: ["Tailwind CSS", "Lucide", "Leaflet"] },
+        { label: "Persistence", technologies: ["MongoDB Atlas", "Mongoose"] },
+        { label: "Authentication", technologies: ["Auth.js", "bcryptjs"] },
+        { label: "External services", technologies: ["Cloudinary", "Geoapify"] },
+        { label: "Testing", technologies: ["Vitest", "MongoDB Memory Server"] },
+      ],
+      featureGroups: [
+        {
+          title: "Configurable thalis",
+          description: "Required choices, selection limits, price adjustments, and optional add-ons produce distinct meal configurations.",
+        },
+        {
+          title: "Menu management",
+          description: "Admins configure meals, daily availability, preparation quantities, ordering cutoffs, and kitchen on/off controls.",
+        },
+        {
+          title: "Cart and checkout",
+          description: "The cart groups compatible variants by delivery date and meal period. Checkout rechecks availability, customization, prices, and delivery on the server.",
+        },
+        {
+          title: "Persistent orders",
+          description: "MongoDB stores order snapshots, totals, payment status, and status history for customer tracking and kitchen operations.",
+        },
+        {
+          title: "Kitchen dashboard",
+          description: "Admin pages support order review, preparation planning, menu changes, and subscription management.",
+        },
+        {
+          title: "Manual UPI review",
+          description: "Customers submit payment details for admin review. Confirmation or rejection changes the order's payment workflow.",
+        },
+        {
+          title: "Subscriptions",
+          description: "Meal-credit tracking and admin pause, resume, and cancellation are implemented. Plan purchases run through a separate preview that collects no money.",
+        },
+        {
+          title: "Delivery checks",
+          description: "Geoapify-backed address verification and optional map pins support delivery eligibility checks at order placement.",
+        },
+      ],
+      architecture: {
+        client: "Next.js Storefront & Admin",
+        api: "Next.js Route Handlers",
+        database: "MongoDB Atlas",
+        externalServices: ["Cloudinary", "Geoapify"],
+      },
+      authentication: [
+        "Auth.js uses a credentials provider for email or phone and password sign-in.",
+        "bcryptjs verifies stored password hashes, and Auth.js manages JWT-based sessions.",
+        "Admin routes check the authenticated user's role on the server.",
+        "Customer order queries are scoped to the signed-in user. Payment-proof retrieval checks the order owner or admin role.",
+      ],
+      orderWorkflows: [
+        {
+          title: "Customer checkout",
+          steps: ["Customize thali", "Cart and delivery", "Server validation", "Order snapshot"],
+        },
+        {
+          title: "Online payment order",
+          steps: ["Payment pending", "Submit UPI proof", "Admin review", "Confirmed or rejected"],
+        },
+        {
+          title: "Cash on Delivery",
+          steps: ["Validated checkout", "Confirmed order", "Delivery", "Payment recorded"],
+        },
+      ],
+      paymentVerification: [
+        "Online orders begin in a payment-pending state with the server-calculated total and configured UPI details.",
+        "Customers can submit a screenshot with a transaction reference, or report proof through the configured WhatsApp channel.",
+        "An admin checks the payment against the bank or UPI statement before confirming it. A screenshot or reference alone does not establish receipt of money.",
+        "Confirmation marks payment as paid and confirms the order. Rejection records a reason and allows the customer to resubmit proof.",
+        "Payment review is manual. Automatic gateway processing and payment webhooks are outside the implemented flow.",
+      ],
+      subscriptions: [
+        "Admins manage plan offerings and can pause, resume, or cancel an active subscription.",
+        "Resuming a paused subscription extends its expiry by the paused duration.",
+        "An eligible plan credit covers one thali base price and delivery. Paid choices and add-ons remain payable.",
+        "Checkout records meal-credit use with the order, and cancellation can return a previously consumed credit.",
+        "Plan purchases remain a separate preview flow that collects no money.",
+      ],
+      testingPhilosophy:
+        "The repository includes tests for pricing rules, delivery eligibility, checkout persistence, authorization, payment-state changes, and subscription-credit use. Unit tests isolate business rules, while checkout tests use an in-memory MongoDB replica set.",
+      testingPractices: [
+        "Vitest checks required thali choices, selection limits, add-on pricing, and cart variant identity.",
+        "Delivery tests cover missing provider configuration, ambiguous addresses, map pins, and radius boundaries.",
+        "Checkout tests exercise idempotency, order snapshots, subscription credits, and server-side validation.",
+        "Payment tests cover pending orders, admin confirmation and rejection, duplicate references, and protected proof access.",
+      ],
+      deployment: [
+        { layer: "Next.js application", platform: "Vercel" },
+        { layer: "Database", platform: "MongoDB Atlas" },
+        { layer: "Upload storage", platform: "Cloudinary" },
+      ],
+      lessons: [
+        "Recalculate final prices and validate current menu configuration at the server boundary.",
+        "Store meal and price snapshots so later catalogue edits preserve the meaning of past orders.",
+        "Use checkout keys and request hashes to distinguish retries from changed submissions.",
+        "Commit order creation and subscription-credit changes in a MongoDB transaction.",
+        "Keep order fulfilment separate from payment review so an unpaid online order cannot enter preparation.",
+        "Retrieve private payment proofs through authenticated order endpoints.",
+      ],
+    },
   },
   {
     slug: "co-parenting-coordinator",

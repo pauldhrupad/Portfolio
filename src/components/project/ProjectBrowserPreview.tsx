@@ -1,4 +1,4 @@
-import { CalendarDays, CircleDollarSign, Clock3, MessageSquareText } from "lucide-react";
+import { CalendarDays, CircleDollarSign, Clock3, LayoutDashboard, MessageSquareText, ShoppingCart, Truck, UtensilsCrossed } from "lucide-react";
 import type { Project } from "@/types/portfolio";
 
 type ProjectBrowserPreviewProps = {
@@ -6,12 +6,14 @@ type ProjectBrowserPreviewProps = {
 };
 
 const previewIcons = [CalendarDays, CircleDollarSign, MessageSquareText, Clock3] as const;
+const commercePreviewIcons = [UtensilsCrossed, ShoppingCart, Truck, LayoutDashboard] as const;
 
 export function ProjectBrowserPreview({ project }: ProjectBrowserPreviewProps) {
   const domain = project.demo
     ? project.demo.replace(/^https?:\/\//, "").replace(/\/.*$/, "")
     : project.title;
   const features = project.previewFeatures ?? [];
+  const icons = project.caseStudy?.kind === "commerce" ? commercePreviewIcons : previewIcons;
 
   return (
     <div className="group/preview overflow-hidden rounded-[var(--radius-lg)] border border-border-strong bg-background shadow-[var(--shadow-floating)] transition-[border-color,transform] duration-[var(--duration-base)] hover:border-border-emphasis">
@@ -49,7 +51,7 @@ export function ProjectBrowserPreview({ project }: ProjectBrowserPreviewProps) {
 
         <div className="relative mt-5 grid gap-3 sm:grid-cols-2">
           {features.map((feature, index) => {
-            const Icon = previewIcons[index % previewIcons.length];
+            const Icon = icons[index % icons.length];
 
             return (
               <div
