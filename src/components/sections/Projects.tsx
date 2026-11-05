@@ -16,7 +16,7 @@ export function Projects() {
       id="projects"
     >
       <Container size="wide">
-        <SectionReveal distance={18}>
+        <SectionReveal distance={8}>
           <SectionHeading
             description="Three projects exploring product workflows, backend rules, and interactive systems. Open a case study to see the engineering behind each one."
             id="projects-title"
@@ -25,7 +25,7 @@ export function Projects() {
           />
         </SectionReveal>
 
-        <div className="mt-8 sm:mt-12">
+        <div className="mt-6 sm:mt-12">
           <ProjectGallery projects={projects} />
         </div>
       </Container>

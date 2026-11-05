@@ -40,7 +40,7 @@ export function ProjectBrowserPreview({
           </div>
         )}
       </div>
-      <figcaption className="mt-3 font-mono text-xs leading-5 text-text-muted">
+      <figcaption className="mt-2 font-mono text-xs leading-5 text-text-muted sm:mt-3">
         {project.media?.caption ?? "Illustrative preview"}
       </figcaption>
     </figure>
