@@ -244,6 +244,21 @@ body {
   border-top-color: var(--accent-cyan);
 }
 
+@media (width < 64rem) {
+  .hero-architecture-layer {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: auto;
+    height: auto;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+    transform: none;
+  }
+}
+
 .about-identity {
   background: linear-gradient(155deg, var(--surface-elevated), var(--background-secondary));
 }

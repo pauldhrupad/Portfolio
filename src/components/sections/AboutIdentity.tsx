@@ -6,20 +6,24 @@ export function AboutIdentity({ profile }: { profile: Profile }) {
   const initials = profile.name.split(" ").map((part) => part[0]).join("");
 
   return (
-    <article className="about-identity relative flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-border-strong p-6 sm:p-8">
+    <article className="about-identity relative flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-border-strong p-4 sm:p-8">
       <div aria-hidden="true" className="about-identity-grid absolute inset-0" />
       <div className="relative flex h-full flex-col">
         <p className="font-mono text-xs uppercase tracking-[0.14em] text-text-muted">Developer / Creative</p>
-        <div aria-hidden="true" className="my-7 flex size-28 items-center justify-center rounded-full border border-border-strong bg-surface text-5xl font-semibold tracking-[-0.07em] text-text-primary sm:my-9">
-          {initials}<span className="text-accent-primary">.</span>
+        <div className="mt-4 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 sm:mt-0 sm:block">
+          <div aria-hidden="true" className="flex size-14 items-center justify-center rounded-full border border-border-strong bg-surface text-2xl font-semibold tracking-[-0.07em] text-text-primary sm:my-9 sm:size-28 sm:text-5xl">
+            {initials}<span className="text-accent-primary">.</span>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">{profile.name}</h3>
+            <p className="mt-1 max-w-[24ch] text-sm leading-5 text-text-secondary sm:mt-2 sm:text-base sm:leading-7">{profile.primaryRole}</p>
+          </div>
         </div>
-        <h3 className="text-2xl font-semibold tracking-tight">{profile.name}</h3>
-        <p className="mt-2 max-w-[24ch] text-base leading-7 text-text-secondary">{profile.primaryRole}</p>
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap gap-2 sm:mt-5">
           {profile.focusAreas.map((area) => <Badge key={area} variant="accent">{area}</Badge>)}
         </div>
 
-        <div className="mt-auto space-y-4 pt-8">
+        <div className="mt-auto space-y-3 pt-4 sm:space-y-4 sm:pt-8">
           {profile.showLocation && (
             <p className="flex items-center gap-2 text-sm text-text-secondary">
               <MapPin aria-hidden="true" className="size-4 shrink-0 text-accent-primary" /> {profile.location}
