@@ -18,7 +18,7 @@ export function Education() {
           <SectionHeading id="education-title" index="05 / EDUCATION" title="Academic foundation." />
         </SectionReveal>
 
-        <div className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-2 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)_minmax(0,0.85fr)] sm:mt-12">
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-12 sm:gap-4 md:grid-cols-2 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)_minmax(0,0.85fr)]">
           <SectionReveal amount={0.08} className="min-w-0 md:col-span-2 lg:col-span-1" distance={10}>
             <EducationCard education={primaryEducation} />
           </SectionReveal>

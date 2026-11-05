@@ -6,9 +6,9 @@ export function AdditionalDimensions() {
   if (creativeCredentials.length === 0) return null;
 
   return (
-    <section aria-labelledby="dimensions-title" className="mt-6" id="dimensions">
+    <section aria-labelledby="dimensions-title" className="mt-3 sm:mt-6" id="dimensions">
       <SectionReveal distance={10}>
-        <div className="grid gap-4 rounded-[var(--radius-lg)] border border-border bg-surface p-5 sm:p-6 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:gap-8">
+        <div className="grid gap-3 rounded-[var(--radius-lg)] border border-border bg-surface p-4 sm:gap-4 sm:p-6 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:gap-8">
           <div>
             <h3 className="flex items-center gap-2 text-lg font-semibold tracking-tight" id="dimensions-title">
               <PenTool aria-hidden="true" className="size-4 shrink-0 text-accent-primary" /> Additional dimensions

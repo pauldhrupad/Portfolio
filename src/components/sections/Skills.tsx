@@ -18,7 +18,7 @@ export function Skills() {
       />
 
       <Container size="wide">
-        <SectionReveal distance={18}>
+        <SectionReveal distance={8}>
           <SectionHeading
             description="Technology choices from my selected projects, with examples of how I use them across interfaces, backend workflows, and game logic."
             id="skills-title"
@@ -27,7 +27,7 @@ export function Skills() {
           />
         </SectionReveal>
 
-        <SectionReveal amount={0.05} className="mt-8 sm:mt-12" distance={10}>
+        <SectionReveal amount={0.05} className="mt-6 sm:mt-12" distance={6}>
           <SkillsExplorer groups={skillGroups} projects={projects.map(({ slug, title }) => ({ slug, title }))} />
         </SectionReveal>
       </Container>

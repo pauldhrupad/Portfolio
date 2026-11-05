@@ -12,7 +12,7 @@ export function DeveloperPresence() {
     <section aria-labelledby="developer-presence-title" className="relative border-y border-border py-[var(--space-section)]" id="developer-presence">
       <Container size="wide">
         <SectionReveal distance={10}>
-          <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="flex flex-wrap items-end justify-between gap-4 sm:gap-6">
             <SectionHeading
               description="Explore the source behind the interfaces, application workflows, and game rules."
               id="developer-presence-title"
@@ -25,22 +25,22 @@ export function DeveloperPresence() {
           </div>
         </SectionReveal>
 
-        <div aria-label="Selected repositories" className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-4 sm:mt-12 md:grid-cols-3" role="region">
+        <div aria-label="Selected repositories" className="mt-6 grid grid-cols-1 gap-3 sm:mt-12 sm:gap-4 md:grid-cols-3" role="region">
           {projects.map((project, index) => (
             <SectionReveal className="min-w-0" delay={index * 0.04} distance={10} key={project.slug}>
-              <article className="flex h-full flex-col rounded-[var(--radius-lg)] border border-border bg-surface p-5 transition-colors hover:border-border-strong sm:p-6">
+              <article className="flex h-full min-w-0 flex-col rounded-[var(--radius-lg)] border border-border bg-surface p-4 transition-colors hover:border-border-strong sm:p-6">
                 <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-text-muted">
                   <GitBranch aria-hidden="true" className="size-4 shrink-0" /> Repository {String(index + 1).padStart(2, "0")}
                 </p>
-                <h3 className="mt-4 text-xl font-semibold leading-snug tracking-tight">
-                  <a className="inline-flex min-h-11 items-start gap-2 rounded-sm hover:text-accent-primary" href={project.github} rel="noreferrer" target="_blank">
+                <h3 className="mt-2 text-xl font-semibold leading-snug tracking-tight sm:mt-4">
+                  <a className="inline-flex min-h-11 items-center gap-2 rounded-sm hover:text-accent-primary sm:items-start" href={project.github} rel="noreferrer" target="_blank">
                     {project.title}<ArrowUpRight aria-hidden="true" className="mt-1 size-4 shrink-0" />
                   </a>
                 </h3>
-                <ul className="mt-3 grid gap-2 text-sm leading-7 text-text-secondary">
+                <ul className="mt-2 grid gap-2 text-sm leading-6 text-text-secondary sm:mt-3 sm:leading-7">
                   {project.highlights.slice(-2).map((highlight) => <li key={highlight}>{highlight}</li>)}
                 </ul>
-                <ul aria-label="Repository technologies" className="mt-auto flex flex-wrap gap-2 pt-5">
+                <ul aria-label="Repository technologies" className="mt-auto flex flex-wrap gap-2 pt-3 sm:pt-5">
                   {(project.homepageTechnologies ?? project.technologies).slice(0, 4).map((technology) => (
                     <li key={technology}><TechBadge>{technology}</TechBadge></li>
                   ))}

@@ -23,7 +23,7 @@ export function Experience() {
       />
 
       <Container size="wide">
-        <SectionReveal distance={18}>
+        <SectionReveal distance={8}>
           <SectionHeading
             id="experience-title"
             index="04 / EXPERIENCE"
@@ -32,7 +32,7 @@ export function Experience() {
           />
         </SectionReveal>
 
-        <SectionReveal amount={0.06} className="mt-8 max-w-5xl sm:mt-12" distance={10}>
+        <SectionReveal amount={0.06} className="mt-6 max-w-5xl sm:mt-12" distance={6}>
           <ExperienceTimeline entries={publicExperience} />
         </SectionReveal>
       </Container>
