@@ -131,7 +131,7 @@ export function ContactForm({ email }: { email: string }) {
   };
 
   return (
-    <form action="/api/contact" aria-busy={status === "submitting"} aria-labelledby="contact-form-title" className="grid gap-5" method="post" noValidate onSubmit={handleSubmit}>
+    <form action="/api/contact" aria-busy={status === "submitting"} aria-labelledby="contact-form-title" className="grid gap-4 sm:gap-5" method="post" noValidate onSubmit={handleSubmit}>
       <div>
         <h3 className="text-2xl font-semibold tracking-tight" id="contact-form-title">Send a message</h3>
         <p className="mt-2 text-sm leading-6 text-text-secondary">All fields are required. A little context helps me understand what you have in mind.</p>
@@ -140,9 +140,9 @@ export function ContactForm({ email }: { email: string }) {
         <style>{"#contact-form-fields { display: none; }"}</style>
         <p className="text-sm leading-7 text-text-secondary">The form needs JavaScript. Please use the direct email link instead.</p>
       </noscript>
-      <fieldset className="grid min-w-0 gap-5" disabled={status === "submitting"} id="contact-form-fields">
+      <fieldset className="grid min-w-0 gap-4 sm:gap-5" disabled={status === "submitting"} id="contact-form-fields">
         <legend className="sr-only">Message details</legend>
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
           <ContactField
             autoComplete="name"
             error={errors.name}
@@ -188,7 +188,7 @@ export function ContactForm({ email }: { email: string }) {
           <textarea
             aria-describedby={`contact-message-hint${errors.message ? " contact-message-error" : ""}`}
             aria-invalid={Boolean(errors.message)}
-            className={cn(fieldClassName, "min-h-40 resize-y")}
+            className={cn(fieldClassName, "min-h-32 resize-y sm:min-h-40")}
             id="contact-message"
             maxLength={contactLimits.message.max}
             name="message"

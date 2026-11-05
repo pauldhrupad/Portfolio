@@ -3,13 +3,13 @@ import type { CaseStudyArchitecture } from "@/types/portfolio";
 
 export function ArchitectureDiagram({ architecture }: { architecture: CaseStudyArchitecture }) {
   return (
-    <figure className="rounded-[var(--radius-lg)] border border-border bg-surface p-5 sm:p-7">
-      <figcaption className="mb-6 text-sm leading-6 text-text-secondary">{architecture.caption}</figcaption>
-      <div className={cn("grid gap-6", architecture.externalServices.length > 0 && "md:grid-cols-[minmax(0,1fr)_minmax(0,0.65fr)]")}>
+    <figure className="rounded-[var(--radius-lg)] border border-border bg-surface p-3 sm:p-7">
+      <figcaption className="mb-4 text-sm leading-6 text-text-secondary sm:mb-6">{architecture.caption}</figcaption>
+      <div className={cn("grid gap-4 sm:gap-6", architecture.externalServices.length > 0 && "md:grid-cols-[minmax(0,1fr)_minmax(0,0.65fr)]")}>
         <ol aria-label="Architecture layers" className="grid gap-3">
           {architecture.layers.map((layer, index) => (
             <li key={layer.label}>
-              <div className="rounded-[var(--radius-md)] border border-border-strong bg-background px-5 py-4">
+              <div className="rounded-[var(--radius-md)] border border-border-strong bg-background p-3 sm:px-5 sm:py-4">
                 <p className="font-mono text-xs uppercase tracking-widest text-text-muted">{layer.label}</p>
                 <p className="mt-2 text-base font-semibold leading-6">{layer.value}</p>
               </div>
@@ -18,7 +18,7 @@ export function ArchitectureDiagram({ architecture }: { architecture: CaseStudyA
           ))}
         </ol>
         {architecture.externalServices.length > 0 && (
-          <div className="rounded-[var(--radius-md)] border border-border p-5">
+          <div className="rounded-[var(--radius-md)] border border-border p-3 sm:p-5">
             <p className="font-mono text-xs uppercase tracking-widest text-text-muted">External services</p>
             <ul className="mt-4 grid gap-3">
               {architecture.externalServices.map((service) => (

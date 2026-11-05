@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-[72svh] items-center py-[var(--space-section)]" id="main-content" tabIndex={-1}>
+    <main className="flex min-h-[72svh] items-center py-[var(--space-section)] max-lg:pt-[max(var(--space-section),var(--nav-offset))]" id="main-content" tabIndex={-1}>
       <Container size="narrow">
-        <div className="neu-panel mx-auto max-w-3xl rounded-[var(--radius-xl)] border border-border p-7 text-center sm:p-12">
+        <div className="neu-panel mx-auto max-w-3xl rounded-[var(--radius-xl)] border border-border p-4 text-center sm:p-12">
           <p className="font-mono text-sm font-medium uppercase tracking-[0.16em] text-accent-primary">
             404 / NOT FOUND
           </p>

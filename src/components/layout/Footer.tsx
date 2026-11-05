@@ -8,9 +8,9 @@ const linkClassName = "inline-flex min-h-11 items-center gap-2 rounded-sm text-s
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-background-secondary/50 py-8 sm:py-10">
+    <footer className="border-t border-border bg-background-secondary/50 pt-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:pt-10 sm:pb-[max(2.5rem,env(safe-area-inset-bottom))]">
       <Container size="wide">
-        <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-12">
+        <div className="grid gap-3 sm:gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-12">
           <div className="flex items-start gap-4">
             <Link aria-label="DP — Dhrupad Paul home" className="flex size-11 shrink-0 items-center justify-center rounded-[var(--radius-sm)] border border-border-strong bg-surface font-mono font-semibold hover:border-accent-primary" href="/#top" prefetch={false}>
               DP<span aria-hidden="true" className="text-accent-primary">.</span>
@@ -22,7 +22,7 @@ export function Footer() {
           </div>
 
           <nav aria-label="Footer navigation">
-            <ul className="grid grid-cols-2 gap-x-8 gap-y-1 sm:grid-cols-3">
+            <ul className="grid grid-cols-2 gap-x-3 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-1">
               <li><Link className={linkClassName} href="/#about" prefetch={false}>About</Link></li>
               <li><Link className={linkClassName} href="/#projects" prefetch={false}>Projects</Link></li>
               <li><Link className={linkClassName} href="/#contact" prefetch={false}>Contact</Link></li>
@@ -36,7 +36,7 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-4">
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-border pt-2 sm:mt-6 sm:gap-y-4 sm:pt-4">
           <p className="text-xs leading-6 text-text-muted">© {new Date().getFullYear()} {profile.name}</p>
           <Link className={linkClassName} href="/#top" prefetch={false}>Back to top <ArrowUp aria-hidden="true" className="size-4" /></Link>
         </div>
