@@ -1,151 +1,102 @@
-import { ArrowDown, ArrowUpRight, MapPin } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Download, GitBranch, MapPin } from "lucide-react";
 import { Container } from "@/components/layout/Container";
-import { Reveal, ScrollLayer } from "@/components/motion/Reveal";
+import { SectionReveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
-import { SocialLink } from "@/components/ui/SocialLink";
 import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
 import { hasPublishedCaseStudy } from "@/lib/projects";
+import { HeroVisual } from "./HeroVisual";
 
 const featuredProject = projects.find((project) => project.featured);
 
 export function Hero() {
   return (
-    <section
-      aria-labelledby="hero-title"
-      className="flex min-h-svh items-center overflow-hidden pb-14 pt-28 sm:pb-16 sm:pt-32 lg:pb-20 lg:pt-28"
-      id="top"
-    >
+    <section aria-labelledby="hero-title" className="relative pb-12 pt-28 sm:pb-16 sm:pt-36 lg:pt-40" id="top">
       <Container size="wide">
-        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] items-center gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(22rem,0.9fr)] lg:gap-4 xl:gap-10">
-          <ScrollLayer className="relative z-10 min-w-0 max-w-3xl" distance={-10}>
-            <Reveal delay={0.12} distance={10}>
-              <p className="font-mono text-sm font-medium tracking-[0.14em] text-accent-primary-soft sm:text-base">
-                Hello, I&apos;m
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.22} distance={16}>
-              <h1
-                className="mt-4 text-[clamp(3.4rem,15vw,6.5rem)] font-semibold leading-[0.8] tracking-[-0.07em] text-text-primary sm:mt-5 lg:text-[clamp(5.5rem,9vw,8.4rem)]"
-                id="hero-title"
-              >
-                <span className="block">DHRUPAD</span>
-                <span className="mt-[0.16em] block text-text-secondary">PAUL</span>
-              </h1>
-            </Reveal>
-
-            <Reveal delay={0.42} distance={14}>
-              <p className="mt-6 text-[clamp(1.2rem,2.2vw,1.65rem)] font-medium leading-tight tracking-[-0.025em] text-text-primary sm:mt-8">
+        <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-12">
+          <div className="min-w-0">
+            <SectionReveal distance={8}>
+              <p className="font-mono text-xs font-medium tracking-[0.06em] text-accent-primary sm:text-sm">
                 {profile.primaryRole}
               </p>
+              <p className="mt-3 text-2xl font-semibold tracking-tight text-text-primary sm:text-3xl">
+                {profile.name}
+              </p>
+            </SectionReveal>
 
-              <p className="mt-4 max-w-2xl break-words text-base leading-7 text-text-secondary sm:mt-5 sm:text-lg sm:leading-8">
+            <SectionReveal delay={0.06} distance={10}>
+              <h1 className="mt-6 max-w-[14ch] text-[clamp(2.125rem,5.1vw,5rem)] font-semibold leading-[1.04] tracking-[-0.055em] text-text-primary" id="hero-title">
+                Building thoughtful <span className="text-accent-primary">interfaces</span> and reliable backend systems.
+              </h1>
+            </SectionReveal>
+
+            <SectionReveal delay={0.12} distance={10}>
+              <p className="mt-6 max-w-[52ch] text-base leading-7 text-text-secondary sm:text-lg sm:leading-8">
                 {profile.summary}
               </p>
-            </Reveal>
+              <div className="mt-7 grid gap-3 sm:flex sm:flex-wrap">
+                <ButtonLink href="#projects" size="lg">
+                  Explore Projects <ArrowDown aria-hidden="true" className="size-4" />
+                </ButtonLink>
+                <ButtonLink download href={profile.resumePath} size="lg" variant="secondary">
+                  <Download aria-hidden="true" className="size-4" /> Download Resume
+                </ButtonLink>
+              </div>
+              <div className="mt-3 flex flex-wrap gap-1">
+                <ButtonLink href={profile.socialLinks.github} size="sm" target="_blank" variant="ghost">
+                  <GitBranch aria-hidden="true" className="size-4" /> GitHub
+                  <ArrowUpRight aria-hidden="true" className="size-3.5" />
+                </ButtonLink>
+                <ButtonLink href="#contact" size="sm" variant="ghost">
+                  Contact Me <ArrowRight aria-hidden="true" className="size-4" />
+                </ButtonLink>
+              </div>
+            </SectionReveal>
 
-            {(profile.showLocation || profile.openToWork) && (
-              <Reveal delay={0.58} distance={12}>
-                <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm text-text-muted sm:mt-6">
-                  {profile.showLocation ? (
-                    <span className="inline-flex items-center gap-2">
-                      <MapPin aria-hidden="true" className="size-4 text-text-secondary" />
-                      {profile.location}
-                    </span>
-                  ) : null}
-                  {profile.openToWork ? (
-                    <span className="inline-flex items-center gap-2 text-success">
-                      <span
-                        aria-hidden="true"
-                        className="size-1.5 rounded-full bg-success shadow-[0_0_0.75rem_rgb(102_217_168/0.7)]"
-                      />
-                      Open to opportunities
-                    </span>
-                  ) : null}
-                </div>
-              </Reveal>
-            )}
-
-            {featuredProject ? (
-              <Reveal delay={0.64} distance={10}>
-                <p className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-text-muted">
-                  <span className="font-mono uppercase tracking-[0.12em]">
-                    Featured project
+            <SectionReveal delay={0.18} distance={8}>
+              <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-xs text-text-muted sm:text-sm">
+                {profile.showLocation && (
+                  <span className="inline-flex items-center gap-2">
+                    <MapPin aria-hidden="true" className="size-3.5" /> {profile.location}
                   </span>
-                  <span aria-hidden="true">/</span>
-                  <a
-                    className="inline-flex items-center gap-1.5 font-semibold text-text-primary underline decoration-border-strong underline-offset-4 transition-colors duration-[var(--duration-fast)] hover:text-accent-primary focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-primary"
-                    href={
-                      hasPublishedCaseStudy(featuredProject)
-                        ? `/projects/${featuredProject.slug}`
-                        : featuredProject.demo ?? featuredProject.github
-                    }
-                  >
-                    {featuredProject.title}
-                    <ArrowUpRight aria-hidden="true" className="size-3.5" />
-                  </a>
-                </p>
-              </Reveal>
-            ) : null}
-
-            <Reveal delay={0.7} distance={12}>
-              <div className="mt-6 grid w-full gap-3 sm:mt-8 sm:flex sm:flex-wrap sm:items-center">
-                <ButtonLink
-                  className="w-full min-h-12 px-4 text-sm sm:w-auto sm:min-h-14 sm:px-6 sm:text-base"
-                  href="#projects"
-                  size="lg"
-                >
-                  View Selected Work
-                  <ArrowDown aria-hidden="true" className="size-4" />
-                </ButtonLink>
-                <ButtonLink
-                  className="w-full min-h-12 px-4 text-sm sm:w-auto sm:min-h-14 sm:px-6 sm:text-base"
-                  download
-                  href={profile.resumePath}
-                  size="lg"
-                  variant="secondary"
-                >
-                  Download Resume
-                </ButtonLink>
-                <SocialLink
-                  className="w-full sm:w-auto"
-                  href={profile.socialLinks.github}
-                  label="GitHub"
-                  platform="github"
-                  target="_blank"
-                />
-                <ButtonLink
-                  className="w-full min-h-12 px-4 text-sm sm:w-auto"
-                  href="#contact"
-                  variant="ghost"
-                >
-                  Contact
-                </ButtonLink>
+                )}
+                {profile.openToWork && (
+                  <span className="inline-flex items-center gap-2 text-success">
+                    <span aria-hidden="true" className="size-1.5 rounded-full bg-success" />
+                    Open to opportunities
+                  </span>
+                )}
               </div>
-            </Reveal>
-          </ScrollLayer>
+            </SectionReveal>
+          </div>
 
-          <Reveal
-            className="relative min-h-[20rem] min-w-0 max-w-full lg:min-h-0"
-            delay={0.28}
-            distance={12}
-            scale={0.96}
-          >
-            <ScrollLayer className="min-w-0 max-w-full" distance={-18}>
-              <div className="hero-editorial" aria-hidden="true">
-                <span className="hero-emboss">DEVELOPER</span>
-                <div className="editorial-sheet">
-                  <div className="editorial-topline"><span>DP / DEVELOPMENT</span><span>01</span></div>
-                  <span className="editorial-symbol">&#123; &#125;</span>
-                  <p>Systems.<br />Interfaces.<br /><em>Useful software.</em></p>
-                  <div className="editorial-stack">REACT / NODE.JS / MONGODB</div>
-                </div>
-                <div className="editorial-caption">FULL-STACK THINKING · BACKEND FOCUS</div>
-              </div>
-            </ScrollLayer>
-          </Reveal>
+          <SectionReveal className="min-w-0" delay={0.12} distance={12} amount={0.1}>
+            <HeroVisual />
+          </SectionReveal>
         </div>
+
+        {featuredProject && (
+          <SectionReveal className="mt-10 sm:mt-14" delay={0.18} distance={8}>
+            <a
+              className="group flex min-h-16 flex-wrap items-center justify-between gap-x-6 gap-y-2 border-y border-border py-4 text-sm text-text-secondary transition-colors hover:text-text-primary sm:py-5"
+              href={
+                hasPublishedCaseStudy(featuredProject)
+                  ? `/projects/${featuredProject.slug}`
+                  : featuredProject.demo ?? featuredProject.github
+              }
+            >
+              <span className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                <span className="font-mono text-xs uppercase tracking-[0.14em] text-text-muted">Featured project</span>
+                <span className="font-semibold text-text-primary">{featuredProject.title}</span>
+                <span className="hidden md:inline">{featuredProject.category}</span>
+              </span>
+              <span className="inline-flex items-center gap-2 text-accent-primary">
+                {hasPublishedCaseStudy(featuredProject) ? "Read case study" : "Explore project"}
+                <ArrowUpRight aria-hidden="true" className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none" />
+              </span>
+            </a>
+          </SectionReveal>
+        )}
       </Container>
     </section>
   );

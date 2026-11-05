@@ -57,7 +57,7 @@ Phase 2 verification passed lint, the production build and TypeScript checks, da
 | Finding | Phase impact |
 | --- | --- |
 | Case-study data supports coordination, commerce, and game variants with distinct architecture and workflow contracts. The shared renderer presents coordination and commerce case studies. | Complete the game presentation in Phase 4. A shared publication guard keeps unsupported case studies out of routes, links, and the sitemap. |
-| Some Motion wrappers emit content at zero opacity before hydration. The mobile canvas is hidden by CSS while the dynamic component still mounts. Scene colors and browser theme colors are also hard-coded separately from CSS tokens. | Check that core content appears before animation and test script/WebGL failure. Keep 3D off mobile and reduced-motion critical paths. Check all theme surfaces together when changing tokens. |
+| Shared section reveals now preserve visible server-rendered content and use transform/opacity keyframes after entering the viewport. The gallery canvas is still hidden by CSS on mobile while its dynamic component mounts, and scene colors are hard-coded. | Hero and About have JavaScript-disabled and reduced-motion checks. Keep the remaining gallery loading and palette concerns in the release verification gate. |
 | `--radius-xl` is referenced by the custom 404 but missing from the global token definitions. | Resolve the token in the design foundation and verify the 404 in both themes. |
 | The contact limiter is process-local and keys off proxy IP headers. The body is fully read before the actual byte count is checked. | Rate limiting depends on trusted proxy headers and resets per instance. Preserve existing behavior during visual phases and assess the hosting boundary before claiming production abuse protection. |
 | Production canonicals require an explicit public URL or Vercel hostname. Successful form delivery requires a Resend key, verified sender, and recipient. | Check production configuration before release. Validate failure feedback and direct email locally. |
@@ -70,7 +70,7 @@ Phase 2 verification passed lint, the production build and TypeScript checks, da
 - [x] **Phase 0 · Preparation.** Review the portfolio and reference code, establish the baseline, create the feature branch, and document the plan.
 - [x] **Phase 1 · Design foundation.** Update semantic tokens, type, spacing, and shared layout and controls. Verify light, dark, and system behavior, focus, reduced motion, mobile navigation, and 404. Keep the current project data and content routes during this phase.
 - [x] **Phase 2 · Project lineup.** Verify the three source repositories, replace project data in the required order, remove retired public references, prepare typed case-study variants, and document missing media.
-- [ ] **Phase 3 · Recruiter-facing homepage.** Improve hero hierarchy and résumé/contact discoverability. Apply responsive editorial and bento layouts using the selected-project data and existing anchors.
+- [x] **Phase 3 · Hero and About.** Redesign the identity and value hierarchy, CTA layout, technical artwork, and editorial/bento biography using the existing typed data and anchors.
 - [ ] **Phase 4 · Case-study presentation.** Build project-specific presentations for commerce, coordination, and game content, publish supported case-study routes, and add approved screenshots when available.
 - [ ] **Release verification.** Run the full regression checklist, capture accessibility and performance results, and verify public content, production configuration, and dependency security. Merge or deploy only after explicit approval.
 
@@ -85,6 +85,14 @@ The preview remains an explicitly labeled illustration with food-ordering icons.
 Verification passed lint, the production build, static-route and metadata checks, sitemap assertions, and homepage/gallery navigation to both published case studies. GharKaBite was checked in light and dark themes at 320, 375, 768, 1024, and 1440 px, with an automated accessibility scan. The mobile hero grid uses a zero-minimum column to keep preview content inside the viewport.
 
 ## Accessibility, performance, and verification
+
+### Phase 3 verification
+
+Hero now leads with the existing role and name, an editorial headline, and two primary actions. The selected GharKaBite case-study link remains connected to the project data. About uses the profile, featured education entry, skill constellation, and drawing credential. The concise introduction is stored in the existing profile summary field.
+
+The custom hero artwork uses CSS, SVG, and a small Motion client component. Pointer tilt is limited to fine, hover-capable mouse input with no reduced-motion preference. Touch and reduced-motion paths remain static, and a preference change resets the tilt. Shared section reveals keep content visible during server rendering and animate only transforms and opacity on entry. Unused hero parallax helpers and old editorial-card CSS were removed.
+
+Lint, the production build, and responsive checks passed at 320, 375, 768, 1024, and 1440 px in both themes. Browser checks cover the résumé download, project/contact anchors, both existing case-study routes, typed biography content, and JavaScript-disabled content. Automated accessibility scans of Hero and About reported no violations. The tested entrance sequence produced no Hero/About layout-shift entries. Desktop and mobile screenshots were visually reviewed. Verification used Chromium with emulated touch and color/motion preferences.
 
 - Target WCAG 2.2 AA. Check both themes for at least 4.5:1 normal-text contrast and 3:1 large-text and applicable control contrast. Check semantic landmarks and heading order, keyboard access, visible focus, mobile dialog focus restoration, meaningful labels and alt text, and announced form feedback. [W3C WCAG 2.2](https://www.w3.org/TR/WCAG22/)
 - Check 320 px and representative phone, tablet, and desktop widths plus 200% zoom. Keep reading and focus order aligned with the grid. Verify no page-level horizontal overflow and that the fixed header leaves anchored headings and focused controls visible.

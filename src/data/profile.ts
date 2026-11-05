@@ -8,7 +8,7 @@ export const profile = {
   email: "dhrupadpaul04@gmail.com",
   resumePath: "/resume/Dhrupad-Paul-Resume.pdf",
   summary:
-    "Computer Science student building practical full-stack applications with React, Node.js, Express, and MongoDB, with a growing focus on backend engineering and production-ready systems.",
+    "I build practical web applications, connecting clear interfaces with the APIs and data behind them.",
   seoDescription:
     "Portfolio of Dhrupad Paul, a Computer Science student and full-stack developer building web applications with React, Node.js, Express and MongoDB.",
   socialLinks: {

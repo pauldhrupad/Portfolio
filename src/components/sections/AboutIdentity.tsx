@@ -1,60 +1,42 @@
-type AboutIdentityProps = {
-  city: string;
-  graduationYear: string;
-  initials: string;
-  name: string;
-  programCode: string;
-};
+import { ArrowUpRight, MapPin } from "lucide-react";
+import { Badge } from "@/components/ui/Badge";
+import type { Profile } from "@/types/portfolio";
 
-export function AboutIdentity({
-  city,
-  graduationYear,
-  initials,
-  name,
-  programCode,
-}: AboutIdentityProps) {
+export function AboutIdentity({ profile }: { profile: Profile }) {
+  const initials = profile.name.split(" ").map((part) => part[0]).join("");
+
   return (
-    <div className="neu-panel relative mx-auto aspect-[4/5] w-full max-w-[27rem] rounded-[calc(var(--radius-lg)+0.125rem)] border border-border p-1.5">
-      <div className="identity-surface relative flex h-full overflow-hidden rounded-[var(--radius-lg)] border border-border p-6 shadow-[var(--shadow-inset)] sm:p-8">
-        <div
-          aria-hidden="true"
-          className="identity-grid absolute inset-0"
-        />
+    <article className="about-identity relative flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-border-strong p-6 sm:p-8">
+      <div aria-hidden="true" className="about-identity-grid absolute inset-0" />
+      <div className="relative flex h-full flex-col">
+        <p className="font-mono text-xs uppercase tracking-[0.14em] text-text-muted">Developer / Creative</p>
+        <div aria-hidden="true" className="my-7 flex size-28 items-center justify-center rounded-full border border-border-strong bg-surface text-5xl font-semibold tracking-[-0.07em] text-text-primary sm:my-9">
+          {initials}<span className="text-accent-primary">.</span>
+        </div>
+        <h3 className="text-2xl font-semibold tracking-tight">{profile.name}</h3>
+        <p className="mt-2 max-w-[24ch] text-base leading-7 text-text-secondary">{profile.primaryRole}</p>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {profile.focusAreas.map((area) => <Badge key={area} variant="accent">{area}</Badge>)}
+        </div>
 
-        <div className="relative flex w-full flex-col">
-          <div className="flex items-center justify-between font-mono text-xs uppercase tracking-[0.18em] text-text-muted sm:text-sm">
-            <span>Identity / 01</span>
-            <span className="flex items-center gap-2 text-accent-primary-soft">
-              <span className="size-1.5 rounded-full bg-accent-cyan" />
-              Active
-            </span>
-          </div>
-
-          <div className="my-auto py-8">
-            <p className="text-[clamp(6rem,24vw,10rem)] font-semibold leading-none tracking-[-0.09em] text-text-primary">
-              {initials}
-              <span className="text-accent-primary">.</span>
+        <div className="mt-auto space-y-4 pt-8">
+          {profile.showLocation && (
+            <p className="flex items-center gap-2 text-sm text-text-secondary">
+              <MapPin aria-hidden="true" className="size-4 shrink-0 text-accent-primary" /> {profile.location}
             </p>
-            <p className="mt-3 font-mono text-sm font-medium uppercase tracking-[0.16em] text-text-secondary">
-              {name}
-            </p>
-            <div className="mt-5 h-px w-full bg-[linear-gradient(90deg,var(--accent-primary),var(--accent-cyan),transparent)]" />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 border-t border-border pt-5 font-mono text-xs uppercase tracking-[0.14em] sm:text-sm">
-            <div>
-              <p className="text-text-muted">Program</p>
-              <p className="mt-1 text-text-primary">
-                {programCode} / {graduationYear}
+          )}
+          {profile.openToWork && (
+            <div className="border-t border-border pt-4">
+              <p className="flex items-center gap-2 text-sm text-success">
+                <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-success" /> Open to opportunities
               </p>
+              <a className="mt-2 inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-semibold text-text-primary hover:text-accent-primary" href="#contact">
+                Let&apos;s connect <ArrowUpRight aria-hidden="true" className="size-4" />
+              </a>
             </div>
-            <div className="text-right">
-              <p className="text-text-muted">Base</p>
-              <p className="mt-1 text-text-primary">{city}</p>
-            </div>
-          </div>
+          )}
         </div>
       </div>
-    </div>
+    </article>
   );
 }
