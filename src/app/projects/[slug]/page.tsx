@@ -39,13 +39,18 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
       url: `${siteConfig.url}/projects/${project.slug}`,
       title: `${project.title} | ${profile.name}`,
       description: project.caseStudy.seoDescription,
-      images: [],
+      images: project.media ? [{
+        url: project.media.src,
+        width: project.media.width,
+        height: project.media.height,
+        alt: project.media.alt,
+      }] : [],
     },
     twitter: {
-      card: "summary",
+      card: project.media ? "summary_large_image" : "summary",
       title: `${project.title} | ${profile.name}`,
       description: project.caseStudy.seoDescription,
-      images: [],
+      images: project.media ? [project.media.src] : [],
     },
   };
 }
@@ -58,5 +63,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  return <ProjectCaseStudy project={project} />;
+  const relatedProjects = projects.filter((item) => item.slug !== project.slug && hasPublishedCaseStudy(item));
+  return <ProjectCaseStudy project={project} relatedProjects={relatedProjects} />;
 }

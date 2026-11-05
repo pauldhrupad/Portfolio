@@ -72,9 +72,8 @@ export type CaseStudyWorkflow = {
 };
 
 export type CaseStudyArchitecture = {
-  client: string;
-  api: string;
-  database: string;
+  caption: string;
+  layers: { label: string; value: string }[];
   externalServices: string[];
 };
 
@@ -83,47 +82,32 @@ export type CaseStudyDeploymentItem = {
   platform: string;
 };
 
-type CaseStudyOverview = {
+export type CaseStudySection = {
+  id: string;
+  title: string;
+} & (
+  | { type: "text"; paragraphs: string[] }
+  | { type: "list"; intro?: string; items: string[] }
+  | { type: "features"; items: CaseStudyFeatureGroup[] }
+  | { type: "workflows"; items: CaseStudyWorkflow[] }
+  | { type: "architecture"; diagram: CaseStudyArchitecture }
+  | { type: "deployment"; items: CaseStudyDeploymentItem[] }
+);
+
+export type ProjectCaseStudy = {
   seoDescription: string;
   heroSummary: string;
-  context: string;
-  problem: string;
-  productGoal: string;
   technologyGroups: CaseStudyTechnologyGroup[];
-  featureGroups: CaseStudyFeatureGroup[];
-  testingPhilosophy: string;
-  testingPractices: string[];
-  deployment: CaseStudyDeploymentItem[];
-  lessons: string[];
+  sections: CaseStudySection[];
 };
 
-export type CoordinationCaseStudy = CaseStudyOverview & {
-  kind: "coordination";
-  architecture: CaseStudyArchitecture;
-  authentication: string[];
-  custodyWorkflows: CaseStudyWorkflow[];
-  expenseWorkflows: CaseStudyWorkflow[];
-  communicationAudit: string[];
+export type ProjectMedia = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  caption: string;
 };
-
-export type ProjectCaseStudy =
-  | CoordinationCaseStudy
-  | (CaseStudyOverview & {
-      kind: "commerce";
-      architecture: CaseStudyArchitecture;
-      authentication: string[];
-      orderWorkflows: CaseStudyWorkflow[];
-      paymentVerification: string[];
-      subscriptions: string[];
-    })
-  | (CaseStudyOverview & {
-      kind: "game";
-      architecture: { client: string; engine: string; renderer: string };
-      gameplayWorkflows: CaseStudyWorkflow[];
-      cpuStrategy: string;
-    });
-
-export type PublishedCaseStudy = Exclude<ProjectCaseStudy, { kind: "game" }>;
 
 export type Project = {
   slug: string;
@@ -140,11 +124,8 @@ export type Project = {
   featured: boolean;
   github: string;
   demo?: string;
-  cover?: string;
-  screenshots?: string[];
+  media?: ProjectMedia;
   highlights: string[];
-  challenge?: string;
-  solution?: string;
   status: ProjectStatus;
   caseStudy?: ProjectCaseStudy;
 };

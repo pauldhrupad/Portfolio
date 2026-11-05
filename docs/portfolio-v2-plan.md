@@ -6,14 +6,14 @@ Phase 0 baseline reviewed on 5 November 2026 at `038ee48`. Work is scoped to `fe
 
 | Area | Implementation |
 | --- | --- |
-| Runtime and tooling | Next.js 16.3.4 App Router, React 19.2.8, strict TypeScript, Tailwind CSS 4 through PostCSS, Lucide, Motion, Three.js and React Three Fiber. Next config sets the Turbopack root and shared security headers. ESLint uses Next.js Core Web Vitals and TypeScript presets. |
-| App shell and homepage | The root layout loads Geist and Geist Mono with `next/font/google`, wraps the site in `ThemeProvider`, and shares navigation and footer across routes. `/` renders Hero, About, Skills, Projects, Experience, Education, Developer Presence, and Contact. The route and sections are server components with client boundaries for navigation, theme, motion, skills, the gallery, and the form. |
+| Runtime and tooling | Next.js 16.3.4 App Router, React 19.2.8, strict TypeScript, Tailwind CSS 4 through PostCSS, Lucide and Motion. Next config sets the Turbopack root and shared security headers. ESLint uses Next.js Core Web Vitals and TypeScript presets. Phase 4 removes the unused Three.js and React Three Fiber dependencies. |
+| App shell and homepage | The root layout loads Geist and Geist Mono with `next/font/google`, wraps the site in `ThemeProvider`, and shares navigation and footer across routes. `/` renders Hero, About, Skills, Projects, Experience, Education, Developer Presence, and Contact. The route, gallery, and sections are server components with client boundaries for navigation, theme, motion, skills, and the form. |
 | Components and data | `src/components/layout` and `src/components/ui` provide shared layout and controls. Section components consume typed content from `src/data`. `src/types/portfolio.ts` defines the content contracts. `src/lib` handles class composition, URL validation, and shared contact validation. The hero, gallery, Developer Presence, case-study route, and sitemap all read the project dataset. |
-| Projects and routes | `Project` holds card copy, technology lists, links and optional media and case-study fields. `/projects/[slug]` statically generates supported case studies. GharKaBite and Co-Parenting share the renderer, with commerce and coordination sections selected by a typed discriminator. Unknown slugs use the custom 404. |
-| Tokens and responsive layout | `globals.css` defines palette, text, surfaces, spacing, radii, shadows, motion, and type scales with CSS custom properties mapped to Tailwind. The current style uses raised surfaces and glass effects. Fluid type and gutters, responsive grids, and the fixed navigation support smaller screens. The menu switches to a mobile dialog below `xl`. The project gallery stacks its details and shows the CSS fallback below 768 px. |
+| Projects and routes | `Project` holds card copy, technology lists, links and optional media and case-study fields. `/projects/[slug]` statically generates all three case studies. A typed section union supports text, lists, feature groups, workflows, architecture and deployment in one renderer. Unknown slugs use the custom 404. |
+| Tokens and responsive layout | `globals.css` defines palette, text, surfaces, spacing, radii, shadows, motion, and type scales with CSS custom properties mapped to Tailwind. Fluid type and gutters, responsive grids, and fixed navigation support smaller screens. The menu switches to a mobile dialog below `lg`. The gallery stacks on mobile, with a wide featured card and two editorial cards on desktop. |
 | Theme and motion | A pre-paint script and `ThemeProvider` resolve light, dark, and system preferences, persist the choice in `localStorage`, and update the page color scheme and browser theme color. Navigation observes section visibility. Motion supplies entrance and scroll reveals. CSS and Motion respond to reduced-motion preferences. |
-| Three.js | The gallery dynamically imports the canvas with SSR disabled. React Three Fiber renders simple meshes on demand with capped device pixel ratio. A CSS stage remains underneath the canvas. Render errors and WebGL context loss fall back to the stage, and project controls and links are DOM elements. |
-| SEO and assets | The root and case-study routes supply metadata and canonicals. The homepage adds Person JSON-LD. The sitemap lists case-study routes and robots excludes `/api/`. `NEXT_PUBLIC_SITE_URL` or the Vercel production hostname sets the canonical base, with a localhost fallback. `public` contains the site-wide social card and downloadable résumé. The image, model, and project asset directories contain placeholders. |
+| Project previews | All three projects use authentic static screenshots through `next/image`, with reserved aspect ratios, responsive sizes, alt text and provenance captions. The gallery has no canvas or WebGL dependency. The chess application remains external to the portfolio. |
+| SEO and assets | The root and case-study routes supply metadata and canonicals. Each case study uses its screenshot for Open Graph and Twitter media. The homepage adds Person JSON-LD. The sitemap lists exactly three case-study routes and robots excludes `/api/`. `NEXT_PUBLIC_SITE_URL` or the Vercel production hostname sets the canonical base, with a localhost fallback. `public` contains the site-wide social card, downloadable résumé, and project screenshots. |
 | Contact | `ContactForm` posts to the Node.js `POST /api/contact` route. Client and server share field limits. The route checks payload size, uses a honeypot and an in-memory rate limiter, and calls Resend with server-only configuration and a timeout. The direct email link is available independently of the form. |
 
 ## Approved design direction
@@ -22,7 +22,7 @@ Use the requested hybrid of Dark Tech Studio, Editorial Minimalism, and Bento Da
 
 ## Exact three-project lineup
 
-The gallery follows the supplied reference order. GharKaBite is the featured homepage project and links to its published case study. Both GharKaBite and Co-Parenting have case-study routes and verified demo links. The game presentation is scheduled for Phase 4.
+The gallery follows the supplied reference order. GharKaBite is the featured homepage project. All three have published case studies. GharKaBite and Co-Parenting have verified demo links; chess has a source link only.
 
 | Project | Case-study slug | Evidence and boundaries |
 | --- | --- | --- |
@@ -48,7 +48,7 @@ Reference heads were rechecked against GitHub on 5 November 2026. All three matc
 
 Both supplied demo URLs returned HTTP 200. The chess entry has a source link. Its hosted demo is unverified.
 
-No application screenshots were found in the reference trees or the portfolio. GharKaBite includes food/category imagery, logos, and font assets. Co-Parenting includes a favicon and theme script, and its README lists screenshots as a future addition. The chess repository includes plaster and studio textures. These assets do not establish application screenshots. The gallery and current case-study preview use explicitly labeled illustrations. No reference media or private data was copied.
+At Phase 2, no application screenshots were found in the reference trees or the portfolio. GharKaBite includes food/category imagery, logos, and font assets; Co-Parenting includes a favicon and theme script; chess includes plaster and studio textures. The Phase 2 previews were labeled illustrations. Phase 4 replaces them with browser-captured screenshots documented below.
 
 The downloadable résumé receives the same project cleanup. Its Co-Parenting entry, unrelated education, certifications, and achievements are preserved. New GharKaBite and 4D Chess descriptions are brief and source-supported.
 
@@ -56,13 +56,13 @@ Phase 2 verification passed lint, the production build and TypeScript checks, da
 
 | Finding | Phase impact |
 | --- | --- |
-| Case-study data supports coordination, commerce, and game variants with distinct architecture and workflow contracts. The shared renderer presents coordination and commerce case studies. | Complete the game presentation in Phase 4. A shared publication guard keeps unsupported case studies out of routes, links, and the sitemap. |
-| Shared section reveals now preserve visible server-rendered content and use transform/opacity keyframes after entering the viewport. The gallery canvas is still hidden by CSS on mobile while its dynamic component mounts, and scene colors are hard-coded. | Hero and About have JavaScript-disabled and reduced-motion checks. Keep the remaining gallery loading and palette concerns in the release verification gate. |
-| `--radius-xl` is referenced by the custom 404 but missing from the global token definitions. | Resolve the token in the design foundation and verify the 404 in both themes. |
+| Phase 4 replaces project-specific schema variants with typed presentation sections and publishes all three case studies. | New projects can compose supported section types without custody- or commerce-specific rendering branches. |
+| Shared section reveals preserve visible server-rendered content and animate transforms/opacity after entering the viewport. Phase 4 removes the gallery canvas, hard-coded scene colors, and obsolete gallery CSS. | Project discovery no longer depends on JavaScript or WebGL. Reduced-motion views retain static previews. |
+| The custom 404's missing `--radius-xl` token was resolved in Phase 1. | Keep the existing 404 checks in release verification. |
 | The contact limiter is process-local and keys off proxy IP headers. The body is fully read before the actual byte count is checked. | Rate limiting depends on trusted proxy headers and resets per instance. Preserve existing behavior during visual phases and assess the hosting boundary before claiming production abuse protection. |
 | Production canonicals require an explicit public URL or Vercel hostname. Successful form delivery requires a Resend key, verified sender, and recipient. | Check production configuration before release. Validate failure feedback and direct email locally. |
 | The current lockfile includes a critical audit finding for Next.js and two high-severity findings in production dependencies. | Review and resolve the production findings before approving a release. [Next.js security advisory](https://github.com/advisories/GHSA-673q-mjm6-r5xr) |
-| Portfolio project screenshots, a profile photo, 3D models, and a verified LinkedIn URL are absent. The browser-style preview is an illustration. | Use approved screenshots with synthetic or scrubbed data when available, or use clearly labeled illustrations and text. Preserve the initials treatment and conditional social links. Use the existing résumé and site social card as baseline assets. |
+| Project screenshots are available after Phase 4. Authenticated admin/family screens, a profile photo, and a verified LinkedIn URL are absent. | Do not invent dashboard screenshots or access private records. Preserve the initials treatment and conditional social links. Portfolio 3D models are unnecessary for the static gallery. |
 | The portfolio has no automated test script. Google-hosted fonts are a build-time network dependency. | Keep lint, build, and runtime smoke checks as separate gates. Capture the current build behavior before comparing redesign results. |
 
 ## Phase checklist
@@ -71,20 +71,52 @@ Phase 2 verification passed lint, the production build and TypeScript checks, da
 - [x] **Phase 1 · Design foundation.** Update semantic tokens, type, spacing, and shared layout and controls. Verify light, dark, and system behavior, focus, reduced motion, mobile navigation, and 404. Keep the current project data and content routes during this phase.
 - [x] **Phase 2 · Project lineup.** Verify the three source repositories, replace project data in the required order, remove retired public references, prepare typed case-study variants, and document missing media.
 - [x] **Phase 3 · Hero and About.** Redesign the identity and value hierarchy, CTA layout, technical artwork, and editorial/bento biography using the existing typed data and anchors.
-- [ ] **Phase 4 · Case-study presentation.** Build project-specific presentations for commerce, coordination, and game content, publish supported case-study routes, and add approved screenshots when available.
+- [x] **Phase 4 · Project showcase and case studies.** Publish all three typed case studies, add authentic previews, build the content-first gallery, and verify routes, accessibility and responsive behavior.
 - [ ] **Release verification.** Run the full regression checklist, capture accessibility and performance results, and verify public content, production configuration, and dependency security. Merge or deploy only after explicit approval.
 
 ### GharKaBite case-study addition
 
-The requested GharKaBite case study is published at `/projects/gharkabite`. The shared template uses commerce-specific order, payment, and subscription sections alongside the existing common sections. The homepage featured link, gallery, metadata, and sitemap consume the shared publication guard.
+The requested GharKaBite case study is published at `/projects/gharkabite`. Phase 4 migrates its order, payment and subscription content into the generic typed section renderer. The homepage featured link, gallery, metadata, and sitemap consume the shared publication guard.
 
 Content uses the pinned GharKaBite README, manifest, authentication configuration, order and subscription services, payment review routes, and checkout, thali, and delivery tests. Test descriptions report the coverage visible in those files. The reference application tests were inspected. The portfolio checks cover publication and rendering.
 
-The preview remains an explicitly labeled illustration with food-ordering icons. Application screenshots remain a missing asset.
+Phase 4 replaces the original illustrated preview with the public storefront screenshot.
 
 Verification passed lint, the production build, static-route and metadata checks, sitemap assertions, and homepage/gallery navigation to both published case studies. GharKaBite was checked in light and dark themes at 320, 375, 768, 1024, and 1440 px, with an automated accessibility scan. The mobile hero grid uses a zero-minimum column to keep preview content inside the viewport.
 
 ## Accessibility, performance, and verification
+
+### Phase 4 implementation and evidence
+
+The gallery renders exactly three cards in the requested order. GharKaBite uses a wide featured layout; Co-Parenting and chess share the next desktop row. Every card includes its category, summary, primary stack, engineering highlights, case-study and repository links. Only the two supplied, publicly verified demo URLs appear. Cards and links are server-rendered; subtle reveals and image hover effects are optional enhancements.
+
+`ProjectCaseStudy` now renders a strict discriminated union of six section types: text, list, features, workflows, architecture and deployment. Each dataset chooses its own headings and content. All three pages include a project hero, screenshot, technology groups, native collapsible section navigation, architecture/workflow diagrams where useful, repository/demo actions, back links and related-project navigation. `generateStaticParams`, metadata and the existing data-driven sitemap use the same publication guard. All three slugs are published; unsupported slugs remain 404s.
+
+The case-study contribution sections describe the implementation scope visible in each repository. The sources do not establish individual team-member attribution, so no team size, exclusive authorship or numerical outcomes are asserted. Testing sections describe repository coverage and commands; the reference applications' full test suites were not executed for this presentation change.
+
+Reference commits still match the lineup table. Phase 4 re-read the README and manifests for all three projects, plus GharKaBite's order/subscription services; Co-Parenting's audit, custody-overlap and expense-state-machine services and immutable-record/testing documentation; and chess's complete `App.tsx`, engine, scene and Vite configuration. This preserves manual UPI review, preview-only plan purchases, application-level audit boundaries, cube-surface movement, team safety, heuristic CPU behavior and the documented rules limitations.
+
+#### Screenshot provenance
+
+Captured on 5 November 2026 using isolated, unauthenticated Chromium sessions. No login was submitted, no protected screen was accessed, and no personal customer or family record was captured. The reference working trees remain unchanged. The three original 1440 × 900 captures were converted to WebP using the existing Sharp dependency, then visually inspected. No external application bundle is included in the portfolio.
+
+| Asset | Authentic source | File size |
+| --- | --- | --- |
+| `public/projects/gharkabite.webp` | Public [GharKaBite storefront](https://gharkabite.vercel.app/), with an empty delivery input. | 83,964 bytes |
+| `public/projects/co-parenting-coordinator.webp` | Public [Co-Parenting sign-in screen](https://co-parenting-coordinator.vercel.app/login), with empty credential fields. | 35,936 bytes |
+| `public/projects/4d-chess.webp` | Initial four-player board from the read-only reference repository's supplied `dist/index.html`, served temporarily on loopback. | 87,706 bytes |
+
+The 207,606 bytes of source media use `next/image` with responsive `sizes`, reserved aspect ratios, descriptive alt text and visible provenance captions. Case-study hero images are preloaded; gallery images use default lazy loading. A clearly labeled illustrative fallback remains available when media is absent. Co-Parenting has no approved authenticated dashboard capture, and chess has no verified hosted demo.
+
+The generic mesh gallery added no useful project information, so Phase 4 removes `GalleryCanvas.tsx`, its unused CSS, `@react-three/fiber`, `three` and `@types/three`. Chess retains its verified Three.js technology badge and case-study explanation, while the portfolio itself needs no WebGL initialization or fallback machinery.
+
+#### Phase 4 verification
+
+- `npm run lint`, `npm run build` and build-time strict TypeScript checks pass. The production build statically generates all three case-study pages. The lockfile reflects the removed packages, and `npm ls` confirms they are absent.
+- Production browser checks cover exact gallery count/order, source and conditional demo links, case-study routes, canonical/Open Graph/Twitter metadata, related-project navigation, section anchors, the four-entry sitemap, and unsupported/retired-slug 404s. The existing Next.js `Internal: NoFallbackError` log on unsupported slugs remains a baseline issue; HTTP responses are 404.
+- Gallery and case-study layouts pass at 320, 375, 768, 1024 and 1440 px in both themes without page-level or project-content horizontal overflow. Desktop/mobile captures were visually reviewed. Keyboard activation, mobile Escape/focus restoration, and fixed-header anchor clearance pass.
+- Chromium checks pass with WebGL disabled and JavaScript disabled: all three cards, images, links and native case-study section navigation remain usable. Actual `next/image` responses decode successfully. Reduced motion disables preview scaling. Automated axe scans report no WCAG A/AA violations in the gallery or the three case studies, including 320 px checks for each case study in both themes.
+- The observed gallery reveal/image-loading sequence produces zero layout-shift entries, and no Three.js/gallery-canvas resources are requested. No Lighthouse score, field Web Vitals or physical-device result is claimed. The full release verification gate remains separate.
 
 ### Phase 3 verification
 

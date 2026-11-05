@@ -1,284 +1,145 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, GitBranch } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionReveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { TechBadge } from "@/components/ui/TechBadge";
-import type { Project, PublishedCaseStudy } from "@/types/portfolio";
+import type { CaseStudySection as CaseStudyContent, Project, ProjectCaseStudy as CaseStudyData } from "@/types/portfolio";
 import { ArchitectureDiagram } from "./ArchitectureDiagram";
 import { CaseStudySection } from "./CaseStudySection";
 import { ProjectBrowserPreview } from "./ProjectBrowserPreview";
 import { WorkflowDiagram } from "./WorkflowDiagram";
 
 type ProjectCaseStudyProps = {
-  project: Project & { caseStudy: PublishedCaseStudy };
+  project: Project & { caseStudy: CaseStudyData };
+  relatedProjects: Project[];
 };
 
-export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
+function SectionContent({ section }: { section: CaseStudyContent }) {
+  switch (section.type) {
+    case "text":
+      return <div className="max-w-[70ch] space-y-5 text-base leading-8 text-text-secondary sm:text-lg">{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>;
+    case "list":
+      return (
+        <div>
+          {section.intro && <p className="mb-6 max-w-[70ch] text-base leading-8 text-text-secondary">{section.intro}</p>}
+          <ul className="grid gap-3">
+            {section.items.map((item) => (
+              <li className="flex gap-3 rounded-[var(--radius-md)] border border-border bg-surface p-5 text-base leading-7 text-text-secondary" key={item}>
+                <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent-primary" />{item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    case "features":
+      return (
+        <div className="grid gap-4 sm:grid-cols-2">
+          {section.items.map((feature) => (
+            <div className="rounded-[var(--radius-md)] border border-border bg-surface p-5" key={feature.title}>
+              <h3 className="text-lg font-semibold leading-6">{feature.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-text-secondary sm:text-base">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      );
+    case "workflows":
+      return <div className="grid gap-4">{section.items.map((workflow) => <WorkflowDiagram key={workflow.title} workflow={workflow} />)}</div>;
+    case "architecture":
+      return <ArchitectureDiagram architecture={section.diagram} />;
+    case "deployment":
+      return (
+        <dl className="grid gap-3 sm:grid-cols-3">
+          {section.items.map((item) => (
+            <div className="rounded-[var(--radius-md)] border border-border bg-surface p-5" key={item.layer}>
+              <dt className="font-mono text-xs uppercase tracking-widest text-text-muted">{item.layer}</dt>
+              <dd className="mt-3 text-lg font-semibold">{item.platform}</dd>
+            </div>
+          ))}
+        </dl>
+      );
+  }
+}
+
+export function ProjectCaseStudy({ project, relatedProjects }: ProjectCaseStudyProps) {
   const caseStudy = project.caseStudy;
-  const status = project.status?.replace("-", " ") ?? "Project";
 
   return (
-    <main className="pb-[var(--space-section)] pt-32 sm:pt-36">
+    <main className="pb-[var(--space-section)] pt-28 sm:pt-36">
       <Container size="wide">
-        <SectionReveal distance={12}>
-          <Link
-            className="inline-flex min-h-11 items-center gap-2 rounded-full text-sm font-semibold text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-primary"
-            href="/#projects"
-          >
-            <ArrowLeft aria-hidden="true" className="size-4" />
-            Back to Projects
-          </Link>
-        </SectionReveal>
+        <Link className="inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-semibold text-text-secondary hover:text-text-primary" href="/#projects">
+          <ArrowLeft aria-hidden="true" className="size-4" /> Back to Projects
+        </Link>
 
-        <div className="mt-8 grid grid-cols-[minmax(0,1fr)] items-center gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(26rem,1.14fr)] lg:gap-16">
-          <SectionReveal distance={18}>
-            <div className="flex flex-wrap items-center gap-3">
+        <div className="mt-8 grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-12">
+          <SectionReveal distance={10}>
+            <div className="flex flex-wrap gap-2">
               <Badge variant="accent">{project.category}</Badge>
-              <Badge variant={project.status === "completed" ? "success" : "neutral"}>
-                {status}
-              </Badge>
+              <Badge variant={project.status === "completed" ? "success" : "neutral"}>{project.status.replace("-", " ")}</Badge>
             </div>
-            <h1 className="mt-6 text-[clamp(3rem,7vw,6.75rem)] font-semibold leading-[0.9] tracking-[-0.065em] text-text-primary">
-              {project.title}
-            </h1>
-            <p className="mt-7 max-w-2xl text-base leading-7 text-text-secondary sm:text-lg sm:leading-8">
-              {caseStudy.heroSummary}
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              {project.github ? (
-                <ButtonLink href={project.github} target="_blank" variant="secondary">
-                  <GitBranch aria-hidden="true" className="size-4" />
-                  GitHub
+            <h1 className="mt-5 text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[1.02] tracking-[-0.06em] wrap-anywhere">{project.title}</h1>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-text-secondary sm:text-lg sm:leading-8">{caseStudy.heroSummary}</p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <ButtonLink href={project.github} size="sm" target="_blank" variant="secondary">
+                GitHub <ArrowUpRight aria-hidden="true" className="size-3.5" />
+              </ButtonLink>
+              {project.demo && (
+                <ButtonLink href={project.demo} size="sm" target="_blank">
+                  Live Demo <ArrowUpRight aria-hidden="true" className="size-3.5" />
                 </ButtonLink>
-              ) : null}
-              {project.demo ? (
-                <ButtonLink href={project.demo} target="_blank">
-                  Live Demo
-                  <ArrowUpRight aria-hidden="true" className="size-4" />
-                </ButtonLink>
-              ) : null}
+              )}
             </div>
           </SectionReveal>
-
-          <SectionReveal delay={0.08} distance={20} scale={0.98}>
-            <ProjectBrowserPreview project={project} />
+          <SectionReveal delay={0.06} distance={10} className="group/project min-w-0">
+            <ProjectBrowserPreview priority project={project} />
           </SectionReveal>
         </div>
 
-        <SectionReveal amount={0.08} className="mt-14 lg:mt-20" distance={18}>
-          <section
-            aria-labelledby="technology-stack-title"
-            className="neu-panel rounded-[var(--radius-lg)] border border-border p-6 sm:p-8"
-          >
-            <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
-              <div>
-                <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent-primary-soft sm:text-sm">
-                  System stack
-                </p>
-                <h2
-                  className="mt-2 text-2xl font-semibold tracking-[-0.035em] text-text-primary sm:text-3xl"
-                  id="technology-stack-title"
-                >
-                  Technology breakdown
-                </h2>
-              </div>
-              <span className="font-mono text-xs text-text-muted sm:text-sm">
-                {caseStudy.technologyGroups.length} layers
-              </span>
-            </div>
-
-            <div className="mt-7 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
-              {caseStudy.technologyGroups.map((group) => (
-                <div key={group.label}>
-                  <h3 className="font-mono text-xs uppercase tracking-[0.14em] text-text-muted sm:text-sm">
-                    {group.label}
-                  </h3>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {group.technologies.map((technology) => (
-                      <TechBadge key={technology}>{technology}</TechBadge>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        </SectionReveal>
-
-        <article className="mt-16 lg:mt-24">
-          <CaseStudySection index="01 / CONTEXT" title="Context">
-            <p className="max-w-3xl text-base leading-8 text-text-secondary sm:text-lg">
-              {caseStudy.context}
-            </p>
-          </CaseStudySection>
-
-          <CaseStudySection index="02 / PROBLEM" title="Problem">
-            <p className="max-w-3xl text-base leading-8 text-text-secondary sm:text-lg">
-              {caseStudy.problem}
-            </p>
-          </CaseStudySection>
-
-          <CaseStudySection index="03 / GOAL" title="Product Goal">
-            <p className="max-w-3xl text-xl font-medium leading-8 tracking-[-0.02em] text-text-primary sm:text-2xl sm:leading-9">
-              {caseStudy.productGoal}
-            </p>
-          </CaseStudySection>
-
-          <CaseStudySection index="04 / FEATURES" title="Major Features">
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-              {caseStudy.featureGroups.map((feature) => (
-                <div
-                  className="neu-panel rounded-[var(--radius-md)] border border-border p-5"
-                  key={feature.title}
-                >
-                  <h3 className="text-base font-semibold text-text-primary sm:text-lg">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-text-secondary sm:text-base sm:leading-7">
-                    {feature.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CaseStudySection>
-
-          <CaseStudySection index="05 / ARCHITECTURE" title="Architecture">
-            <ArchitectureDiagram architecture={caseStudy.architecture} />
-          </CaseStudySection>
-
-          <CaseStudySection index="06 / AUTH" title="Authentication">
-            <ul className="grid gap-3 sm:grid-cols-2">
-              {caseStudy.authentication.map((item) => (
-                <li
-                  className="flex gap-3 rounded-[var(--radius-md)] border border-border bg-surface/45 p-5 text-base leading-7 text-text-secondary"
-                  key={item}
-                >
-                  <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent-primary" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </CaseStudySection>
-
-          <CaseStudySection
-            index={caseStudy.kind === "commerce" ? "07 / ORDERS" : "07 / SCHEDULING"}
-            title={caseStudy.kind === "commerce" ? "Order Workflows" : "Custody Workflow"}
-          >
-            <div className="grid gap-4">
-              {(caseStudy.kind === "commerce" ? caseStudy.orderWorkflows : caseStudy.custodyWorkflows).map((workflow) => (
-                <WorkflowDiagram key={workflow.title} workflow={workflow} />
-              ))}
-            </div>
-          </CaseStudySection>
-
-          <CaseStudySection
-            index={caseStudy.kind === "commerce" ? "08 / PAYMENTS" : "08 / EXPENSES"}
-            title={caseStudy.kind === "commerce" ? "Manual UPI Verification" : "Expense States"}
-          >
-            {caseStudy.kind === "commerce" ? (
-              <ul className="grid gap-3">
-                {caseStudy.paymentVerification.map((item) => (
-                  <li className="rounded-[var(--radius-md)] border border-border bg-surface/45 p-5 text-base leading-7 text-text-secondary" key={item}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div className="grid gap-4">
-                {caseStudy.expenseWorkflows.map((workflow) => (
-                  <WorkflowDiagram key={workflow.title} workflow={workflow} />
-                ))}
-              </div>
-            )}
-          </CaseStudySection>
-
-          <CaseStudySection
-            index={caseStudy.kind === "commerce" ? "09 / PLANS" : "09 / RECORDS"}
-            title={caseStudy.kind === "commerce" ? "Subscription Management" : "Communication & Audit"}
-          >
-            <ul className="neu-panel divide-y divide-border rounded-[var(--radius-lg)] border border-border px-5 sm:px-7">
-              {(caseStudy.kind === "commerce" ? caseStudy.subscriptions : caseStudy.communicationAudit).map((item, index) => (
-                <li className="grid gap-3 py-5 sm:grid-cols-[2rem_1fr]" key={item}>
-                  <span className="font-mono text-sm text-accent-primary-soft">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-base leading-7 text-text-secondary">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </CaseStudySection>
-
-          <CaseStudySection index="10 / QUALITY" title="Testing">
-            <p className="max-w-3xl text-base leading-8 text-text-secondary sm:text-lg">
-              {caseStudy.testingPhilosophy}
-            </p>
-            <ul className="mt-7 grid gap-3 sm:grid-cols-2">
-              {caseStudy.testingPractices.map((practice) => (
-                <li
-                  className="rounded-[var(--radius-md)] border border-border bg-background/35 px-5 py-4 text-sm leading-6 text-text-primary sm:text-base"
-                  key={practice}
-                >
-                  {practice}
-                </li>
-              ))}
-            </ul>
-          </CaseStudySection>
-
-          <CaseStudySection index="11 / DELIVERY" title="Deployment">
-            <dl className="grid gap-3 sm:grid-cols-3">
-              {caseStudy.deployment.map((item) => (
-                <div
-                  className="rounded-[var(--radius-md)] border border-border bg-surface/55 p-5"
-                  key={item.layer}
-                >
-                  <dt className="font-mono text-xs uppercase tracking-[0.14em] text-text-muted sm:text-sm">
-                    {item.layer}
-                  </dt>
-                  <dd className="mt-2 text-xl font-semibold text-text-primary">{item.platform}</dd>
-                </div>
-              ))}
-            </dl>
-          </CaseStudySection>
-
-          <CaseStudySection
-            index="12 / REFLECTION"
-            title={caseStudy.kind === "commerce" ? "Engineering Decisions" : "Lessons Learned"}
-          >
-            <ol className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
-              {caseStudy.lessons.map((lesson, index) => (
-                <li className="flex gap-4 text-base leading-7 text-text-secondary" key={lesson}>
-                  <span className="font-mono text-sm text-accent-primary-soft">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  {lesson}
-                </li>
+        <details className="mt-10 rounded-[var(--radius-md)] border border-border bg-surface">
+          <summary className="cursor-pointer px-5 py-4 text-sm font-semibold">On this page</summary>
+          <nav aria-label="Case study sections" className="px-5 pb-5">
+            <ol className="grid gap-x-6 sm:grid-cols-2 lg:grid-cols-3">
+              <li><a className="flex min-h-11 items-center rounded-sm text-sm text-text-secondary hover:text-accent-primary" href="#technology">Technology stack</a></li>
+              {caseStudy.sections.map((section) => (
+                <li key={section.id}><a className="flex min-h-11 items-center rounded-sm text-sm text-text-secondary hover:text-accent-primary" href={`#${section.id}`}>{section.title}</a></li>
               ))}
             </ol>
-          </CaseStudySection>
+          </nav>
+        </details>
+
+        <section aria-labelledby="technology-title" className="mt-10 rounded-[var(--radius-lg)] border border-border bg-surface p-6 sm:p-8" id="technology">
+          <h2 className="text-2xl font-semibold tracking-tight" id="technology-title">Technology stack</h2>
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {caseStudy.technologyGroups.map((group) => (
+              <div key={group.label}>
+                <h3 className="font-mono text-xs uppercase tracking-widest text-text-muted">{group.label}</h3>
+                <div className="mt-3 flex flex-wrap gap-2">{group.technologies.map((technology) => <TechBadge key={technology}>{technology}</TechBadge>)}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <article className="mt-10">
+          {caseStudy.sections.map((section, index) => (
+            <CaseStudySection id={section.id} index={String(index + 1).padStart(2, "0")} key={section.id} title={section.title}>
+              <SectionContent section={section} />
+            </CaseStudySection>
+          ))}
         </article>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border pt-10">
-          <ButtonLink href="/#projects" variant="secondary">
-            <ArrowLeft aria-hidden="true" className="size-4" />
-            Back to Projects
-          </ButtonLink>
-          <div className="flex flex-wrap gap-3">
-            {project.github ? (
-              <ButtonLink href={project.github} target="_blank" variant="ghost">
-                GitHub
-                <ArrowUpRight aria-hidden="true" className="size-4" />
-              </ButtonLink>
-            ) : null}
-            {project.demo ? (
-              <ButtonLink href={project.demo} target="_blank">
-                Live Demo
-                <ArrowUpRight aria-hidden="true" className="size-4" />
-              </ButtonLink>
-            ) : null}
+        <nav aria-label="Related projects" className="border-t border-border pt-10">
+          <h2 className="text-2xl font-semibold tracking-tight">Explore another project</h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {relatedProjects.map((item) => (
+              <Link className="group rounded-[var(--radius-md)] border border-border bg-surface p-5 transition-colors hover:border-border-strong hover:bg-surface-hover" href={`/projects/${item.slug}`} key={item.slug}>
+                <p className="font-mono text-xs uppercase tracking-widest text-text-muted">{item.category}</p>
+                <p className="mt-3 flex items-center justify-between gap-4 text-lg font-semibold">{item.title}<ArrowRight aria-hidden="true" className="size-4 shrink-0" /></p>
+              </Link>
+            ))}
           </div>
-        </div>
+          <ButtonLink className="mt-7" href="/#projects" size="sm" variant="ghost"><ArrowLeft aria-hidden="true" className="size-4" /> Back to Projects</ButtonLink>
+        </nav>
       </Container>
     </main>
   );

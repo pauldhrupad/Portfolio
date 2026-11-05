@@ -1,76 +1,77 @@
-"use client";
-
-import dynamic from "next/dynamic";
-import { Component, useState, type KeyboardEvent, type ReactNode } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { useTheme } from "@/components/layout/ThemeProvider";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
+import { SectionReveal } from "@/components/motion/Reveal";
+import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { TechBadge } from "@/components/ui/TechBadge";
-import type { Project } from "@/types/portfolio";
 import { hasPublishedCaseStudy } from "@/lib/projects";
-
-const GalleryCanvas = dynamic(() => import("@/components/three/GalleryCanvas"), { ssr: false });
-
-class CanvasBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
-  state = { failed: false };
-  static getDerivedStateFromError() { return { failed: true }; }
-  render() { return this.state.failed ? null : this.props.children; }
-}
+import { cn } from "@/lib/cn";
+import type { Project } from "@/types/portfolio";
+import { ProjectBrowserPreview } from "./ProjectBrowserPreview";
 
 export function ProjectGallery({ projects }: { projects: Project[] }) {
-  const [selected, setSelected] = useState(0);
-  const { resolved } = useTheme();
-  const project = projects[selected];
-  const move = (direction: number) => setSelected((current) => (current + direction + projects.length) % projects.length);
-
-  function handleToolbarKeyDown(event: KeyboardEvent<HTMLDivElement>) {
-    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-      event.preventDefault();
-      move(event.key === "ArrowLeft" ? -1 : 1);
-    }
-  }
-
-  return <div className="mt-12" role="region" aria-label="Selected project gallery">
-    <div className="gallery-stage" aria-hidden="true">
-      <div className="gallery-fallback">
-        {projects.map((item, index) => <div className="gallery-preview" data-active={selected === index} key={item.slug}><span /><span /><span /><span /></div>)}
-      </div>
-      <CanvasBoundary><GalleryCanvas selected={selected} dark={resolved === "dark"} count={projects.length} /></CanvasBoundary>
-    </div>
-    <div className="gallery-toolbar glass-panel" onKeyDown={handleToolbarKeyDown}>
-      <button type="button" aria-label="Previous project" onClick={() => move(-1)}><ArrowLeft size={18} /></button>
-      <div className="flex items-center gap-3">
-        <span className="font-mono text-sm">{String(selected + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span>
-        <div aria-label="Choose a project" className="gallery-dots" role="group">
-          {projects.map((item, index) => (
-            <button
-              aria-label={`Show ${item.title}`}
-              aria-pressed={selected === index}
-              className="gallery-dot"
-              key={item.slug}
-              onClick={() => setSelected(index)}
-              type="button"
+  return (
+    <div aria-label="Selected projects" className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-2" role="region">
+      {projects.map((project, index) => (
+        <SectionReveal
+          amount={0.05}
+          className={cn("min-w-0", index === 0 && "lg:col-span-2")}
+          delay={index * 0.04}
+          distance={10}
+          key={project.slug}
+        >
+          <article
+            aria-labelledby={`project-${project.slug}-title`}
+            className={cn(
+              "group/project flex h-full min-w-0 flex-col gap-6 rounded-[var(--radius-lg)] border border-border bg-surface p-4 transition-colors hover:border-border-strong sm:p-6",
+              index === 0 && "lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center lg:gap-10 lg:p-8",
+            )}
+            id={`project-${project.slug}`}
+          >
+            <ProjectBrowserPreview
+              project={project}
+              sizes={index === 0 ? "(min-width: 1024px) 55vw, 100vw" : "(min-width: 1024px) 50vw, 100vw"}
             />
-          ))}
-        </div>
-      </div>
-      <button type="button" aria-label="Next project" onClick={() => move(1)}><ArrowRight size={18} /></button>
+            <div className="flex min-w-0 flex-1 flex-col">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <p className="font-mono text-xs uppercase tracking-[0.12em] text-accent-primary">{project.category}</p>
+                <Badge>{project.status.replace("-", " ")}</Badge>
+              </div>
+              <h3 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em] sm:text-4xl" id={`project-${project.slug}-title`}>
+                {hasPublishedCaseStudy(project) ? (
+                  <Link className="rounded-sm hover:text-accent-primary" href={`/projects/${project.slug}`}>{project.title}</Link>
+                ) : project.title}
+              </h3>
+              <p className="mt-4 text-base leading-7 text-text-secondary">{project.shortDescription}</p>
+              <div aria-label="Primary technologies" className="mt-5 flex flex-wrap gap-2">
+                {(project.homepageTechnologies ?? project.technologies).map((technology) => <TechBadge key={technology}>{technology}</TechBadge>)}
+              </div>
+              <ul aria-label="Engineering highlights" className="mt-6 grid gap-3 border-t border-border pt-5">
+                {project.highlights.slice(0, 3).map((highlight) => (
+                  <li className="flex gap-2.5 text-sm leading-6 text-text-secondary" key={highlight}>
+                    <Check aria-hidden="true" className="mt-1 size-4 shrink-0 text-accent-primary" />{highlight}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-auto flex flex-wrap gap-2 pt-6">
+                {hasPublishedCaseStudy(project) && (
+                  <ButtonLink href={`/projects/${project.slug}`} size="sm">
+                    View Case Study <ArrowRight aria-hidden="true" className="size-4" />
+                  </ButtonLink>
+                )}
+                <ButtonLink href={project.github} size="sm" target="_blank" variant="secondary">
+                  GitHub <ArrowUpRight aria-hidden="true" className="size-3.5" />
+                </ButtonLink>
+                {project.demo && (
+                  <ButtonLink href={project.demo} size="sm" target="_blank" variant="ghost">
+                    Live Demo <ArrowUpRight aria-hidden="true" className="size-3.5" />
+                  </ButtonLink>
+                )}
+              </div>
+            </div>
+          </article>
+        </SectionReveal>
+      ))}
     </div>
-    <p className="mt-3 text-center font-mono text-xs text-text-muted">Illustrative preview · {project.previewTitle}</p>
-    <div className="gallery-info glass-panel" aria-live="polite" aria-atomic="true">
-      <div>
-        <p className="font-mono text-xs uppercase tracking-widest text-accent-primary-soft">{project.category}{project.status ? ` / ${project.status.replace("-", " ")}` : ""}</p>
-        <h3 className="mt-4 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">{project.title}</h3>
-        <p className="mt-5 text-base leading-7 text-text-secondary">{project.shortDescription}</p>
-      </div>
-      <div className="flex flex-col justify-between gap-6">
-        <div className="flex flex-wrap gap-2">{(project.homepageTechnologies ?? project.technologies).map((technology) => <TechBadge key={technology}>{technology}</TechBadge>)}</div>
-        <div className="flex flex-wrap gap-3">
-          {hasPublishedCaseStudy(project) && <ButtonLink href={`/projects/${project.slug}`}>View Case Study <ArrowRight size={16} aria-hidden="true" /></ButtonLink>}
-          {project.demo && <ButtonLink href={project.demo} target="_blank" variant="secondary">Live Demo <ArrowUpRight size={16} aria-hidden="true" /></ButtonLink>}
-          {project.github && <ButtonLink href={project.github} target="_blank" variant="secondary">GitHub <ArrowUpRight size={16} aria-hidden="true" /></ButtonLink>}
-        </div>
-      </div>
-    </div>
-  </div>;
+  );
 }

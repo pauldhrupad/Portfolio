@@ -18,16 +18,16 @@ export function Projects() {
       <Container size="wide">
         <SectionReveal distance={18}>
           <SectionHeading
-            description="A focused selection of applications built around practical workflows, considered backend systems, and clear user experiences."
+            description="Three projects exploring product workflows, backend rules, and interactive systems. Open a case study to see the engineering behind each one."
             id="projects-title"
             index="03 / SELECTED WORK"
-            title="Explore My Projects"
+            title="Selected work. Different problems."
           />
         </SectionReveal>
 
-        <SectionReveal amount={0.06} className="mt-12 lg:mt-16" delay={0.05} distance={24}>
+        <div className="mt-8 sm:mt-12">
           <ProjectGallery projects={projects} />
-        </SectionReveal>
+        </div>
       </Container>
     </section>
   );
