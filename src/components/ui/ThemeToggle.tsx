@@ -8,7 +8,7 @@ export function ThemeToggle() {
   const { theme, resolved, setTheme } = useTheme();
 
   return (
-    <div aria-label="Theme controls" className="flex shrink-0 items-center" role="group">
+    <div aria-label="Theme controls" className="flex shrink-0 items-center gap-1" role="group">
       <Button
         aria-checked={resolved === "dark"}
         aria-label="Dark mode"

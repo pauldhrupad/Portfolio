@@ -124,7 +124,7 @@ export function Navigation({ githubUrl, resumePath }: NavigationProps) {
           <nav
             aria-label="Primary navigation"
             className={cn(
-              "pointer-events-auto flex h-[var(--nav-height)] items-center justify-between gap-1 rounded-[var(--radius-lg)] border bg-surface-elevated px-[var(--space-xs)] transition-[border-color,box-shadow] duration-[var(--duration-base)] sm:gap-2 sm:px-[var(--space-sm)]",
+              "pointer-events-auto flex h-[var(--nav-height)] items-center justify-between gap-1 rounded-[var(--radius-lg)] border bg-surface-elevated px-[var(--space-xs)] transition-[border-color,box-shadow] duration-[var(--duration-base)] sm:gap-4 sm:px-[var(--space-md)] lg:gap-6",
               isScrolled ? "border-border-strong shadow-[var(--shadow-floating)]" : "border-border",
             )}
             data-scrolled={isScrolled}
@@ -138,9 +138,9 @@ export function Navigation({ githubUrl, resumePath }: NavigationProps) {
               DP<span aria-hidden="true" className="text-accent-primary">.</span>
             </Link>
 
-            <ul className="hidden items-center lg:flex">{sectionLinks()}</ul>
+            <ul className="hidden items-center gap-1 lg:flex xl:gap-2">{sectionLinks()}</ul>
 
-            <div className="flex items-center gap-1 sm:gap-2">
+            <div className="flex items-center gap-0.5 sm:gap-3">
               <div className="hidden lg:block">
                 <ButtonLink href={githubUrl} size="sm" target="_blank" variant="ghost">
                   GitHub <ArrowUpRight aria-hidden="true" className="size-3.5" />
