@@ -242,14 +242,9 @@ body {
   mask-image: linear-gradient(black, transparent 55%);
 }
 
-.tool-category,.skill-control { background:var(--surface); box-shadow:var(--shadow-raised-control); }
-.tool-category[aria-pressed="true"],.skill-control[aria-pressed="true"] { box-shadow:var(--shadow-inset); color:var(--accent-primary-soft); border-color:var(--border-strong); transform:translateY(1px); }
 .contact-input { box-shadow:var(--shadow-inset); background:var(--background-secondary); }
 .contact-input:focus { outline:2px solid var(--accent-primary); outline-offset:2px; }
-.timeline-track { background:var(--background-secondary); box-shadow:var(--shadow-inset); }
-.timeline-node { box-shadow:var(--shadow-raised-control); }
 #education h3 { overflow-wrap:anywhere; }
-.education-accent { background:radial-gradient(circle at 82% 18%,color-mix(in srgb,var(--accent-primary) 16%,transparent),transparent 34%); }
 #about,#education { background:color-mix(in srgb,var(--surface) 48%,transparent); }
 #skills,#experience { background:linear-gradient(135deg,color-mix(in srgb,var(--background-secondary) 70%,transparent),transparent 75%); }
 #projects { background:radial-gradient(ellipse at 50% 48%,color-mix(in srgb,var(--accent-primary) 7%,transparent),transparent 65%); }

@@ -72,6 +72,7 @@ Phase 2 verification passed lint, the production build and TypeScript checks, da
 - [x] **Phase 2 · Project lineup.** Verify the three source repositories, replace project data in the required order, remove retired public references, prepare typed case-study variants, and document missing media.
 - [x] **Phase 3 · Hero and About.** Redesign the identity and value hierarchy, CTA layout, technical artwork, and editorial/bento biography using the existing typed data and anchors.
 - [x] **Phase 4 · Project showcase and case studies.** Publish all three typed case studies, add authentic previews, build the content-first gallery, and verify routes, accessibility and responsive behavior.
+- [x] **Phase 5 · Skills and background.** Build the evidence-linked skills bento grid, compact experience and academic sections, remove duplicate achievement presentations, and highlight the three selected repositories.
 - [ ] **Release verification.** Run the full regression checklist, capture accessibility and performance results, and verify public content, production configuration, and dependency security. Merge or deploy only after explicit approval.
 
 ### GharKaBite case-study addition
@@ -85,6 +86,31 @@ Phase 4 replaces the original illustrated preview with the public storefront scr
 Verification passed lint, the production build, static-route and metadata checks, sitemap assertions, and homepage/gallery navigation to both published case studies. GharKaBite was checked in light and dark themes at 320, 375, 768, 1024, and 1440 px, with an automated accessibility scan. The mobile hero grid uses a zero-minimum column to keep preview content inside the viewport.
 
 ## Accessibility, performance, and verification
+
+### Phase 5 implementation and evidence
+
+Skills now has eight categories: Programming Languages, Frontend, Backend, Databases, Authentication / Security, Testing, Tools and Deployment, and 3D / Graphics. All categories render initially, with native button filters, pressed states, a polite results announcement, visible focus and comfortable touch targets. The cards link to relevant case studies as project examples. They describe implementation usage, without proficiency levels or percentages.
+
+`src/data/skills.ts` holds category copy and project associations under the existing typed skill contract. React and Express labels match the project data; Auth.js, TypeScript, Tailwind CSS and Three.js are represented. Raycasting and OrbitControls are supported by the chess scene source. Existing Java, Python, HTML5, CSS3, Figma and Photoshop entries remain under “Additional toolkit,” separately from the project technology badges. No selected-project usage or expertise is asserted for those additional entries. Socket.io is omitted because the reviewed selected applications provide no evidence for it. Project examples apply to the category's demonstrated work, rather than asserting that every technology is used in every linked project.
+
+The evidence uses the same read-only reference commits documented above. Phase 5 rechecked all application manifests, GharKaBite's credentials configuration in `auth.js`, Co-Parenting's architecture/testing/hosting documentation in `README.md`, and chess's OrbitControls and raycasting calls in `src/scene.ts`. The earlier source review supplies the application workflows behind the category descriptions. There are no new dependency installations or GitHub API requests.
+
+Experience remains driven by `src/data/experience.ts`. Only the two visible records are rendered: Annual Tech Fest event coordination and Smart India Hackathon 2024. Roles, periods and contribution wording remain unchanged, including approximately 30 volunteers and more than 2000 participants. No organization name, exact Tech Fest dates, hackathon role or employment relationship is supplied by the data; none is inferred. EduNextG remains hidden. The timeline is now a compact server component, with the shared reduced-motion-aware section reveal replacing the separate animated track and articles.
+
+Education uses the unchanged typed records: Sister Nivedita University's B.Tech, `Expected 2026`, CGPA `7.50`; ISC Class XII, `2023`, `86.9%`; and ICSE Class X, `2020`, `89.9%`. The featured degree and two school qualifications sit side by side on desktop and stack deliberately on mobile. Fixed minimum card heights and oversized internal padding are removed. The presentation preserves the supplied expected date without inferring current enrollment or graduation status.
+
+Additional Dimensions holds the drawing credential in one compact panel. Leadership and hackathon achievements appear only in Experience; their duplicate cards are removed. About keeps its creative-interest story and links to `#dimensions`, where the complete credential is listed once. No genuine achievement is deleted from the source data.
+
+Developer Presence reads the central project dataset and displays exactly three repository links in the approved order, along with a GitHub profile action, verified engineering highlights and technology badges for each project. It renders on the server and requires no contribution-count service, live API request or token. The Phase 4 gallery, screenshots, case-study data, routes and SEO remain unchanged.
+
+#### Phase 5 verification
+
+- `npm run lint`, `npm run build` and build-time TypeScript checks pass. All three case-study pages remain statically generated.
+- Assert-based checks compare education, experience, creative and project source files to the preceding commit: all are unchanged. Public content checks confirm each leadership/hackathon highlight and full drawing credential appears once, EduNextG and retired projects are absent, and repository titles, order and URLs match the three selected projects.
+- Production Chromium checks pass at 320, 375, 768, 1024 and 1440 px in light and dark themes with no page-level or section-content horizontal overflow. Desktop and mobile captures of each changed section were visually reviewed. Academic dates, institutions and results match the typed records.
+- All eight filters pass keyboard activation, selected-state, focus retention, content and project-link assertions. Space resets to all categories, Tab reaches the filtered case-study link with visible focus, and Enter opens the case study. Touch checks cover filtering, project navigation and mobile navigation back to Education. About's creative-background anchor clears the fixed navbar.
+- Automated axe WCAG A/AA scans report no violations in Skills, Experience, Education/Additional Dimensions and Developer Presence at 1440 and 320 px in both themes. With JavaScript disabled, all eight categories, factual records and repository links remain available. Reduced-motion checks pass, and the observed entrance sequence produces zero section layout-shift entries.
+- No GitHub API or contribution-service resources are requested. No physical-device, Lighthouse or field Web Vitals result is claimed. Unverified experience details and the existing dependency-security release findings remain open; this phase does not merge, push or deploy.
 
 ### Phase 4 implementation and evidence
 

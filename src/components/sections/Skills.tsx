@@ -1,7 +1,8 @@
 import { Container } from "@/components/layout/Container";
 import { SectionReveal } from "@/components/motion/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { primarySkillConstellation, skillGroups } from "@/data/skills";
+import { projects } from "@/data/projects";
+import { skillGroups } from "@/data/skills";
 import { SkillsExplorer } from "./SkillsExplorer";
 
 export function Skills() {
@@ -16,13 +17,18 @@ export function Skills() {
         className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,var(--border),transparent)]"
       />
 
-      <Container>
+      <Container size="wide">
         <SectionReveal distance={18}>
-          <SectionHeading id="skills-title" index="02 / SKILLS" title="Tools I Build With" />
+          <SectionHeading
+            description="Technology choices from my selected projects, with examples of how I use them across interfaces, backend workflows, and game logic."
+            id="skills-title"
+            index="02 / SKILLS"
+            title="A toolkit shaped by building."
+          />
         </SectionReveal>
 
-        <SectionReveal amount={0.08} className="mt-12 lg:mt-16" delay={0.06} distance={22}>
-          <SkillsExplorer constellation={primarySkillConstellation} groups={skillGroups} />
+        <SectionReveal amount={0.05} className="mt-8 sm:mt-12" distance={10}>
+          <SkillsExplorer groups={skillGroups} projects={projects.map(({ slug, title }) => ({ slug, title }))} />
         </SectionReveal>
       </Container>
     </section>

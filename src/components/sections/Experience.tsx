@@ -22,16 +22,17 @@ export function Experience() {
         className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,var(--border),transparent)]"
       />
 
-      <Container>
+      <Container size="wide">
         <SectionReveal distance={18}>
           <SectionHeading
             id="experience-title"
             index="04 / EXPERIENCE"
             title="Experience & Leadership"
+            description="Event coordination and hands-on innovation, alongside my software projects."
           />
         </SectionReveal>
 
-        <SectionReveal amount={0.06} className="mt-12 lg:mt-16" distance={18}>
+        <SectionReveal amount={0.06} className="mt-8 max-w-5xl sm:mt-12" distance={10}>
           <ExperienceTimeline entries={publicExperience} />
         </SectionReveal>
       </Container>

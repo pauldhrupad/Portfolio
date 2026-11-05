@@ -9,39 +9,24 @@ const primaryEducation = education.find((entry) => entry.featured);
 const supportingEducation = education.filter((entry) => !entry.featured);
 
 export function Education() {
-  if (!primaryEducation) {
-    return null;
-  }
+  if (!primaryEducation) return null;
 
   return (
-    <section
-      aria-labelledby="education-title"
-      className="relative py-[var(--space-section)]"
-      id="education"
-    >
+    <section aria-labelledby="education-title" className="relative py-[var(--space-section)]" id="education">
       <Container size="wide">
-        <SectionReveal distance={18}>
-          <SectionHeading id="education-title" index="05 / EDUCATION" title="Academic Foundation" />
+        <SectionReveal distance={10}>
+          <SectionHeading id="education-title" index="05 / EDUCATION" title="Academic foundation." />
         </SectionReveal>
 
-        <div className="mt-12 grid gap-5 lg:mt-16 lg:grid-cols-[minmax(0,1.2fr)_minmax(20rem,0.8fr)] lg:gap-6">
-          <SectionReveal amount={0.08} className="h-full" distance={22} scale={0.99}>
+        <div className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-2 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)_minmax(0,0.85fr)] sm:mt-12">
+          <SectionReveal amount={0.08} className="min-w-0 md:col-span-2 lg:col-span-1" distance={10}>
             <EducationCard education={primaryEducation} />
           </SectionReveal>
-
-          <div className="grid gap-5 lg:grid-rows-2 lg:gap-6">
-            {supportingEducation.map((entry, index) => (
-              <SectionReveal
-                amount={0.1}
-                className="h-full"
-                delay={index * 0.05}
-                distance={18}
-                key={`${entry.institution}-${entry.qualification}`}
-              >
-                <EducationCard education={entry} />
-              </SectionReveal>
-            ))}
-          </div>
+          {supportingEducation.map((entry, index) => (
+            <SectionReveal className="min-w-0" delay={index * 0.04} distance={10} key={entry.qualification}>
+              <EducationCard education={entry} />
+            </SectionReveal>
+          ))}
         </div>
 
         <AdditionalDimensions />

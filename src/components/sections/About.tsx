@@ -72,7 +72,9 @@ export function About() {
                 <p className="mt-3 text-sm leading-6 text-text-secondary">
                   Drawing gives me another way to explore composition, detail, and the process of refining an idea.
                 </p>
-                <p className="mt-4 border-t border-border pt-4 text-sm leading-6 text-text-muted">{drawingCredential.title}</p>
+                <a className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-medium text-accent-primary hover:underline" href="#dimensions">
+                  Creative background <ArrowUpRight aria-hidden="true" className="size-3.5" />
+                </a>
               </article>
             </SectionReveal>
           )}

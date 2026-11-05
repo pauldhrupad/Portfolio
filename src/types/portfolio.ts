@@ -23,16 +23,17 @@ export type SkillGroupId =
   | "backend"
   | "database"
   | "authentication"
-  | "services"
   | "testing"
-  | "developer-tools"
-  | "design"
-  | "deployment";
+  | "tools"
+  | "graphics";
 
 export type SkillGroup = {
   id: SkillGroupId;
   label: string;
+  description: string;
   skills: string[];
+  additionalSkills?: string[];
+  projectSlugs: string[];
 };
 
 export type SkillConstellationNode = {
