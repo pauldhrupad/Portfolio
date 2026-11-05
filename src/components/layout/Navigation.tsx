@@ -99,7 +99,7 @@ export function Navigation({ githubUrl, resumePath }: NavigationProps) {
             aria-current={active ? "location" : undefined}
             className={cn(
               "flex min-h-11 items-center rounded-[var(--radius-sm)] px-3 font-medium transition-colors duration-[var(--duration-fast)] hover:bg-surface-hover hover:text-text-primary active:bg-surface-active",
-              mobile ? "justify-between text-lg" : "whitespace-nowrap text-sm",
+              mobile ? "justify-between text-base" : "whitespace-nowrap text-sm",
               active ? "bg-surface-active font-semibold text-accent-primary-soft" : "text-text-secondary",
             )}
             href={`/#${id}`}
@@ -121,7 +121,7 @@ export function Navigation({ githubUrl, resumePath }: NavigationProps) {
   return (
     <>
       <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
-        <Container className="pt-[var(--space-sm)]">
+        <Container className="pt-[var(--nav-top)]">
           <nav
             aria-label="Primary navigation"
             className={cn(
@@ -142,23 +142,25 @@ export function Navigation({ githubUrl, resumePath }: NavigationProps) {
 
             <ul className="hidden items-center gap-1 lg:flex xl:gap-2">{sectionLinks()}</ul>
 
-            <div className="flex items-center gap-0.5 sm:gap-3">
+            <div className="flex items-center gap-1 sm:gap-3">
               <div className="hidden lg:block">
                 <ButtonLink href={githubUrl} size="sm" target="_blank" variant="ghost">
                   GitHub <ArrowUpRight aria-hidden="true" className="size-3.5" />
                 </ButtonLink>
               </div>
-              <ButtonLink aria-label="Download résumé" download href={resumePath} size="sm">
-                <FileText aria-hidden="true" className="hidden size-4 shrink-0 sm:block" />
-                Résumé
-              </ButtonLink>
+              <div className="hidden lg:block">
+                <ButtonLink aria-label="Download résumé" download href={resumePath} size="sm">
+                  <FileText aria-hidden="true" className="size-4 shrink-0" />
+                  Résumé
+                </ButtonLink>
+              </div>
               <ThemeToggle />
               <Button
                 aria-controls="mobile-navigation"
                 aria-expanded={isOpen}
                 aria-haspopup="dialog"
                 aria-label="Open navigation menu"
-                className="lg:hidden"
+                className="border-border bg-surface-recessed text-text-primary lg:hidden"
                 onClick={() => {
                   dialogRef.current?.showModal();
                   setIsOpen(true);
@@ -175,7 +177,7 @@ export function Navigation({ githubUrl, resumePath }: NavigationProps) {
 
       <dialog
         aria-labelledby="mobile-navigation-title"
-        className="fixed inset-x-0 top-3 mx-auto max-h-[calc(100dvh-1.5rem)] w-[calc(100%-2*var(--space-gutter))] max-w-lg overscroll-contain rounded-[var(--radius-lg)] border border-border-strong bg-surface-elevated p-[var(--space-md)] text-text-primary shadow-[var(--shadow-floating)] backdrop:bg-black/55"
+        className="fixed mx-auto max-w-md overflow-y-auto overscroll-contain rounded-[var(--radius-lg)] border border-border-strong bg-surface-elevated p-3 text-text-primary shadow-[var(--shadow-floating)] backdrop:bg-black/55 sm:p-4"
         id="mobile-navigation"
         onClose={restoreFocus}
         ref={dialogRef}
@@ -185,17 +187,14 @@ export function Navigation({ githubUrl, resumePath }: NavigationProps) {
             <h2 className="px-3 font-mono text-label uppercase tracking-[0.14em] text-text-muted" id="mobile-navigation-title">
               Navigation
             </h2>
-            <div className="flex items-center">
-              <Button aria-label="Close navigation menu" onClick={closeMenu} variant="icon">
-                <X aria-hidden="true" className="size-5" />
-              </Button>
-              <ThemeToggle />
-            </div>
+            <Button aria-label="Close navigation menu" onClick={closeMenu} variant="icon">
+              <X aria-hidden="true" className="size-5" />
+            </Button>
           </div>
 
           <ul className="grid gap-1">{sectionLinks(true)}</ul>
 
-          <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-border pt-3">
+          <div className="mt-3 grid grid-cols-2 gap-2 border-t border-border pt-3">
             <ButtonLink href={githubUrl} size="sm" target="_blank" variant="secondary">
               GitHub <ArrowUpRight aria-hidden="true" className="size-3.5" />
             </ButtonLink>

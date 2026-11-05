@@ -22,7 +22,7 @@ export function Container({
   return (
     <div
       className={cn(
-        "mx-auto w-full min-w-0 px-[var(--space-gutter)]",
+        "mx-auto w-full min-w-0 ps-[var(--gutter-start)] pe-[var(--gutter-end)]",
         sizeStyles[size],
         className,
       )}

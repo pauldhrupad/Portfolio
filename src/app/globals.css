@@ -36,11 +36,14 @@
   --space-lg: 1.5rem;
   --space-section: clamp(4.5rem, 9vw, 8rem);
   --space-gutter: clamp(1rem, 3.5vw, 2.5rem);
+  --gutter-start: max(var(--space-gutter), env(safe-area-inset-left));
+  --gutter-end: max(var(--space-gutter), env(safe-area-inset-right));
   --container-width-narrow: 56rem;
   --container-width: 76rem;
   --container-width-wide: 88rem;
   --nav-height: 4.25rem;
-  --nav-offset: 6rem;
+  --nav-top: calc(var(--space-sm) + env(safe-area-inset-top));
+  --nav-offset: calc(var(--nav-top) + var(--nav-height) + 1rem);
 
   /* Shape system */
   --radius-sm: 0.5rem;
@@ -146,6 +149,15 @@
   --breakpoint-2xl: 96rem;
 }
 
+@media (width < 40rem) {
+  :root {
+    --space-section: clamp(3.5rem, 12vw, 4.5rem);
+    --space-gutter: clamp(1rem, 4.5vw, 1.25rem);
+    --nav-height: 3.5rem;
+    --nav-top: calc(var(--space-xs) + env(safe-area-inset-top));
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -160,6 +172,14 @@ html:has(#mobile-navigation[open]) {
   overflow: hidden;
 }
 
+#mobile-navigation {
+  inset-inline-start: var(--gutter-start);
+  inset-inline-end: var(--gutter-end);
+  top: var(--nav-top);
+  width: auto;
+  max-height: calc(100dvh - var(--nav-top) - max(var(--space-sm), env(safe-area-inset-bottom)));
+}
+
 body {
   min-height: 100vh;
   margin: 0;
@@ -171,7 +191,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  overflow-x: clip;
 }
 
 /* Existing sections continue to use these surface classes. */

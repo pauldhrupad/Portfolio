@@ -56,6 +56,7 @@ const themeColors = { light: "#f5f6f9", dark: "#0e1118" } as const;
 
 export const viewport: Viewport = {
   colorScheme: "light dark",
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: themeColors.light },
     { media: "(prefers-color-scheme: dark)", color: themeColors.dark },
@@ -85,7 +86,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
       </head>
       <body>
-        <a className="sr-only rounded-[var(--radius-sm)] bg-action px-4 py-3 font-semibold text-action-text focus:not-sr-only focus:fixed focus:top-3 focus:left-[var(--space-gutter)] focus:z-[60]" href="#main-content">
+        <a className="sr-only rounded-[var(--radius-sm)] bg-action px-4 py-3 font-semibold text-action-text focus:not-sr-only focus:fixed focus:top-[var(--nav-top)] focus:left-[var(--gutter-start)] focus:z-[60]" href="#main-content">
           Skip to content
         </a>
         <ThemeProvider>
