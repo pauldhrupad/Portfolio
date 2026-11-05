@@ -1,6 +1,6 @@
 # Portfolio 2.0 plan
 
-Phase 0 baseline reviewed on 5 November 2026 at `038ee48`. Work is scoped to `feat/portfolio-v2-redesign`. Complete and verify one phase at a time. Preserve unrelated changes, keep the reference repositories read-only, and commit only reviewed phase work on the feature branch. Keep credentials, environment files, and private data out of commits. Merge and deployment require explicit approval.
+Phase 0 baseline reviewed on 5 November 2026 at `038ee48`. The redesign phases were completed on `feat/portfolio-v2-redesign`. The owner has since authorized `main` as the single working and production branch. Make requested changes on `main`, validate them, commit completed work, push to `origin/main`, and verify the Vercel deployment before reporting the deployed SHA and URL. Create another branch only when explicitly requested. Preserve unrelated changes, keep the reference repositories read-only, and keep credentials, environment files, and private data out of commits.
 
 ## Current architecture
 
@@ -75,7 +75,7 @@ Phase 2 verification passed lint, the production build and TypeScript checks, da
 - [x] **Phase 5 · Skills and background.** Build the evidence-linked skills bento grid, compact experience and academic sections, remove duplicate achievement presentations, and highlight the three selected repositories.
 - [x] **Phase 6 · Contact and interactions.** Refine the contact form and footer, add email copying and accessible feedback, harden request handling, and verify error recovery and navigation.
 - [x] **Phase 7 · Readiness review.** Run regression, browser, accessibility, SEO, dependency and performance checks; fix verified problems; document remaining targets and prepare the feature branch for draft review. See the [readiness report](portfolio-v2-readiness.md).
-- [ ] **Approved production release.** Confirm live hosting configuration, contact delivery and abuse controls. Review mobile case-study performance and field metrics. Merge or deploy only after explicit approval.
+- [ ] **Production verification.** Confirm the `main` deployment and check the live portfolio. Live inbox delivery, production abuse controls and field metrics require separate evidence.
 
 ### GharKaBite case-study addition
 

@@ -103,20 +103,25 @@ optimizer accepts local project assets in that directory; metadata images and
 the résumé are served directly. The portfolio loads no chess application or
 WebGL bundle.
 
-## Deploying to Vercel
+## Working on main and deploying to Vercel
 
-1. Link the GitHub repository, keep the Next.js preset and use `npm run build`.
-   Verify that `main` is the production branch and that the redesign branch is
-   used only for review.
-2. Set `NEXT_PUBLIC_SITE_URL` to the final HTTPS origin. Configure the three
+1. Fetch `origin`, switch to `main`, and fast-forward from `origin/main`.
+   Preserve any local work before updating. Create another branch only when
+   explicitly requested.
+2. Make the requested changes on `main` and run the relevant verification
+   commands above. Commit the completed changes and run `git push origin main`.
+3. In Vercel, connect `pauldhrupad/Portfolio` under **Settings → Git** and set
+   **Settings → Environments → Production → Branch Tracking** to `main`.
+   Use the Next.js preset and `npm run build`, allow Git deployments for `main`,
+   and enable automatic assignment to the production domains.
+4. Set `NEXT_PUBLIC_SITE_URL` to the final HTTPS origin. Configure the three
    server-only contact variables with a verified sender and approved test inbox
    before testing live delivery. Verify trusted proxy headers and edge limits if
    the form will be enabled for production traffic.
-3. Review the draft pull request and run the verification commands above. Check
-   the preview's links, screenshots, canonical URLs and contact fallback.
-4. After explicit release approval, publish through the configured production
-   branch. Verify the homepage, all three case studies, résumé, metadata,
-   sitemap, robots, 404 and contact behavior on the final domain.
+5. Confirm the new commit reaches **Ready** in Vercel and is assigned to the
+   production URL. Check the homepage, all three case studies, résumé, metadata,
+   sitemap, robots, 404, contact behavior and mobile navigation. Report the
+   verified commit SHA and live URL.
 
 No custom Vercel configuration is required. The project uses standard Next.js static
 assets, Route Handlers, and statically generated project case-study routes.
