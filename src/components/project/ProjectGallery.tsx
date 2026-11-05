@@ -7,6 +7,7 @@ import { useTheme } from "@/components/layout/ThemeProvider";
 import { ButtonLink } from "@/components/ui/Button";
 import { TechBadge } from "@/components/ui/TechBadge";
 import type { Project } from "@/types/portfolio";
+import { hasPublishedCaseStudy } from "@/lib/projects";
 
 const GalleryCanvas = dynamic(() => import("@/components/three/GalleryCanvas"), { ssr: false });
 
@@ -55,6 +56,7 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
       </div>
       <button type="button" aria-label="Next project" onClick={() => move(1)}><ArrowRight size={18} /></button>
     </div>
+    <p className="mt-3 text-center font-mono text-xs text-text-muted">Illustrative preview · {project.previewTitle}</p>
     <div className="gallery-info glass-panel" aria-live="polite" aria-atomic="true">
       <div>
         <p className="font-mono text-xs uppercase tracking-widest text-accent-primary-soft">{project.category}{project.status ? ` / ${project.status.replace("-", " ")}` : ""}</p>
@@ -64,7 +66,7 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
       <div className="flex flex-col justify-between gap-6">
         <div className="flex flex-wrap gap-2">{(project.homepageTechnologies ?? project.technologies).map((technology) => <TechBadge key={technology}>{technology}</TechBadge>)}</div>
         <div className="flex flex-wrap gap-3">
-          {project.caseStudy && <ButtonLink href={`/projects/${project.slug}`}>View Case Study <ArrowRight size={16} aria-hidden="true" /></ButtonLink>}
+          {hasPublishedCaseStudy(project) && <ButtonLink href={`/projects/${project.slug}`}>View Case Study <ArrowRight size={16} aria-hidden="true" /></ButtonLink>}
           {project.demo && <ButtonLink href={project.demo} target="_blank" variant="secondary">Live Demo <ArrowUpRight size={16} aria-hidden="true" /></ButtonLink>}
           {project.github && <ButtonLink href={project.github} target="_blank" variant="secondary">GitHub <ArrowUpRight size={16} aria-hidden="true" /></ButtonLink>}
         </div>

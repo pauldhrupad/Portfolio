@@ -4,6 +4,7 @@ import { ProjectCaseStudy } from "@/components/project/ProjectCaseStudy";
 import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
 import { siteConfig } from "@/data/site";
+import { hasPublishedCaseStudy } from "@/lib/projects";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -13,7 +14,7 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return projects
-    .filter((project) => project.caseStudy)
+    .filter(hasPublishedCaseStudy)
     .map((project) => ({ slug: project.slug }));
 }
 
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   const { slug } = await params;
   const project = projects.find((item) => item.slug === slug);
 
-  if (!project?.caseStudy) {
+  if (!project || !hasPublishedCaseStudy(project)) {
     return {
       title: `Project Not Found | ${profile.name}`,
     };
@@ -53,7 +54,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = projects.find((item) => item.slug === slug);
 
-  if (!project?.caseStudy) {
+  if (!project || !hasPublishedCaseStudy(project)) {
     notFound();
   }
 

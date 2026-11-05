@@ -22,23 +22,41 @@ Use the requested hybrid of Dark Tech Studio, Editorial Minimalism, and Bento Da
 
 ## Exact three-project lineup
 
-The planned grid follows the supplied reference order. Preserve the existing featured Co-Parenting case-study link and its URL. The two new slugs below are proposed for the content phase.
+The gallery follows the supplied reference order. GharKaBite is the featured homepage project and links to its verified demo. Co-Parenting keeps its published case-study URL. The other case-study presentations are scheduled for Phase 4.
 
 | Project | Case-study slug | Evidence and boundaries |
 | --- | --- | --- |
 | GharKaBite | `gharkabite` | Next.js food-ordering prototype with configurable Thalis, daily menus, subscriptions, delivery checks, order tracking, and admin tools. Auth.js and MongoDB/Mongoose back the workflow. Checkout recalculates server-side and uses transactions. Online UPI proof requires manual admin verification, COD is configurable, and meal-plan purchases are a no-money preview. [README](https://github.com/pauldhrupad/GharKaBite/blob/291c3d650ab21168ee4d2e275e98e7744e62994a/README.md) · [Manifest](https://github.com/pauldhrupad/GharKaBite/blob/291c3d650ab21168ee4d2e275e98e7744e62994a/package.json) · [Order service](https://github.com/pauldhrupad/GharKaBite/blob/291c3d650ab21168ee4d2e275e98e7744e62994a/lib/order-service.js) |
 | Co-Parenting Coordinator | `co-parenting-coordinator` | Educational MERN application with family-scoped JWT access, custody conflict checks and swaps, expense states, append-only messages, transactional audit records, email notifications, and PDF/CSV exports. Describe the audit trail at the application level and retain the documented evidence boundaries. [README](https://github.com/pauldhrupad/co-parenting-coordinator/blob/531a233454fa91df03d91e47773f63b80ceed105/README.md) · [Client manifest](https://github.com/pauldhrupad/co-parenting-coordinator/blob/531a233454fa91df03d91e47773f63b80ceed105/client/package.json) · [Server manifest](https://github.com/pauldhrupad/co-parenting-coordinator/blob/531a233454fa91df03d91e47773f63b80ceed105/server/package.json) · [Audit service](https://github.com/pauldhrupad/co-parenting-coordinator/blob/531a233454fa91df03d91e47773f63b80ceed105/server/src/services/audit.js) |
-| 4D Chess — Chess on a Cube | `3d-cube-chess-game` | React, TypeScript, Three.js and Vite game played on the six faces of a 3D cube. Its custom engine handles cross-edge moves, local two-player or four-player team play, and optional heuristic CPU seats. Sessions run locally and reset on refresh. [README](https://github.com/pauldhrupad/3d-Cube-Chess-Game/blob/4f13a8ab9fc518b8aeafc97c7e7dad69bfebb171/README.md) · [Manifest](https://github.com/pauldhrupad/3d-Cube-Chess-Game/blob/4f13a8ab9fc518b8aeafc97c7e7dad69bfebb171/package.json) · [Game engine](https://github.com/pauldhrupad/3d-Cube-Chess-Game/blob/4f13a8ab9fc518b8aeafc97c7e7dad69bfebb171/src/game/engine.ts) · [Three.js scene](https://github.com/pauldhrupad/3d-Cube-Chess-Game/blob/4f13a8ab9fc518b8aeafc97c7e7dad69bfebb171/src/scene.ts) |
+| 4D Chess: Chess on a Cube | `4d-chess` | React, TypeScript, Three.js and Vite game played on the six faces of a 3D cube. Its custom engine handles cross-edge moves, local two-player or four-player team play, and optional heuristic CPU seats. Sessions run locally and reset on refresh. [README](https://github.com/pauldhrupad/3d-Cube-Chess-Game/blob/4f13a8ab9fc518b8aeafc97c7e7dad69bfebb171/README.md) · [Manifest](https://github.com/pauldhrupad/3d-Cube-Chess-Game/blob/4f13a8ab9fc518b8aeafc97c7e7dad69bfebb171/package.json) · [Game engine](https://github.com/pauldhrupad/3d-Cube-Chess-Game/blob/4f13a8ab9fc518b8aeafc97c7e7dad69bfebb171/src/game/engine.ts) · [Three.js scene](https://github.com/pauldhrupad/3d-Cube-Chess-Game/blob/4f13a8ab9fc518b8aeafc97c7e7dad69bfebb171/src/scene.ts) |
 
 The documented [GharKaBite prototype](https://gharkabite.vercel.app/) and [Co-Parenting frontend](https://co-parenting-coordinator.vercel.app/) each returned HTTP 200 on a public GET. Recheck demo links before publishing. The 4D Chess README documents local play and static build instructions, so plan for a source link while a hosted demo remains unverified.
 
-The AI-Powered Resume Screening System and Farm-Market cards are outside the new selected-work lineup. Farm-Market can remain in its existing hackathon experience context. Publish only source-supported claims, links, and approved media. Leave unconfirmed role details and outcomes out of case-study copy.
+Retired project entries and their public references are removed. The SIH 2024 participation and innovation-prototype achievement are preserved with a general description. Publish source-supported claims, links, and approved media.
 
 ## Existing risks and missing inputs
 
+### Phase 2 source and asset review
+
+Reference heads were rechecked against GitHub on 5 November 2026. All three matched the pinned commits in the lineup table. The references were inspected as read-only copies.
+
+| Repository | Source files inspected for portfolio claims |
+| --- | --- |
+| GharKaBite | `README.md`, `package.json`, `app/page.js`, `app/menu/page.js`, `app/admin/dashboard/page.js`, `auth.js`, `context/CartContext.js`, `lib/order-service.js`, `lib/subscription-service.js`, `app/api/orders/route.js`, and `app/api/orders/[orderId]/payment-verification/route.js`. |
+| Co-Parenting Coordinator | `README.md`, root/client/server manifests, `client/src/App.jsx`, `server/src/middleware/auth.js`, custody-overlap, expense-state-machine, audit and email services, message routes, export controller, and `docs/immutable-records.md` and `docs/notifications-export.md`. |
+| 4D Chess | `README.md`, `package.json`, `src/App.tsx`, `src/game/engine.ts`, `src/scene.ts`, and `vite.config.ts`. |
+
+Both supplied demo URLs returned HTTP 200. The chess entry has a source link. Its hosted demo is unverified.
+
+No application screenshots were found in the reference trees or the portfolio. GharKaBite includes food/category imagery, logos, and font assets. Co-Parenting includes a favicon and theme script, and its README lists screenshots as a future addition. The chess repository includes plaster and studio textures. These assets do not establish application screenshots. The gallery and current case-study preview use explicitly labeled illustrations. No reference media or private data was copied.
+
+The downloadable résumé receives the same project cleanup. Its Co-Parenting entry, unrelated education, certifications, and achievements are preserved. New GharKaBite and 4D Chess descriptions are brief and source-supported.
+
+Phase 2 verification passed lint, the production build and TypeScript checks, data/order assertions, and gallery interaction tests in both themes at 320, 375, 768, 1024, and 1440 px. Checks cover exact repository/demo links, counters, keyboard controls, the featured link, existing case-study navigation, removed-project 404s, and the sitemap. The one-page résumé was rendered and inspected, and its unrelated text and achievement records were checked against the original. The existing `Internal: NoFallbackError` server log still accompanies unsupported-slug 404 responses.
+
 | Finding | Phase impact |
 | --- | --- |
-| The case-study schema and renderer require Co-Parenting-specific sections. The architecture type also requires an API and database. | In Phase 3, share the common fields and render typed project-specific sections where applicable. Keep the existing Co-Parenting route, metadata, and content. |
+| Case-study data now supports coordination, commerce, and game variants with distinct architecture and workflow contracts. The current renderer presents coordination case studies. | Complete the other renderers in Phase 4. A shared publication guard keeps unsupported case studies out of routes, links, and the sitemap. |
 | Some Motion wrappers emit content at zero opacity before hydration. The mobile canvas is hidden by CSS while the dynamic component still mounts. Scene colors and browser theme colors are also hard-coded separately from CSS tokens. | Check that core content appears before animation and test script/WebGL failure. Keep 3D off mobile and reduced-motion critical paths. Check all theme surfaces together when changing tokens. |
 | `--radius-xl` is referenced by the custom 404 but missing from the global token definitions. | Resolve the token in the design foundation and verify the 404 in both themes. |
 | The contact limiter is process-local and keys off proxy IP headers. The body is fully read before the actual byte count is checked. | Rate limiting depends on trusted proxy headers and resets per instance. Preserve existing behavior during visual phases and assess the hosting boundary before claiming production abuse protection. |
@@ -51,9 +69,10 @@ The AI-Powered Resume Screening System and Farm-Market cards are outside the new
 
 - [x] **Phase 0 · Preparation.** Review the portfolio and reference code, establish the baseline, create the feature branch, and document the plan.
 - [x] **Phase 1 · Design foundation.** Update semantic tokens, type, spacing, and shared layout and controls. Verify light, dark, and system behavior, focus, reduced motion, mobile navigation, and 404. Keep the current project data and content routes during this phase.
-- [ ] **Phase 2 · Recruiter-facing homepage.** Improve hero hierarchy and résumé/contact discoverability. Apply responsive editorial and bento layouts using the current data and anchors. Keep project information and navigation usable independently of WebGL.
-- [ ] **Phase 3 · Selected work and case studies.** Publish exactly the three documented entries, adapt the typed renderer, and add case-study routes and verified assets where available. Update all consumers of `projects`, including featured links, Developer Presence, metadata, and sitemap.
-- [ ] **Phase 4 · Release verification.** Run the full regression checklist, capture accessibility and performance results, and verify public content, production configuration, and dependency security. Prepare the change for review. Merge or deploy only after explicit approval.
+- [x] **Phase 2 · Project lineup.** Verify the three source repositories, replace project data in the required order, remove retired public references, prepare typed case-study variants, and document missing media.
+- [ ] **Phase 3 · Recruiter-facing homepage.** Improve hero hierarchy and résumé/contact discoverability. Apply responsive editorial and bento layouts using the selected-project data and existing anchors.
+- [ ] **Phase 4 · Case-study presentation.** Build project-specific presentations for commerce, coordination, and game content, publish supported case-study routes, and add approved screenshots when available.
+- [ ] **Release verification.** Run the full regression checklist, capture accessibility and performance results, and verify public content, production configuration, and dependency security. Merge or deploy only after explicit approval.
 
 ## Accessibility, performance, and verification
 

@@ -40,12 +40,12 @@ const dimensions = [
         detail: "A formal creative credential alongside technical study.",
       }
     : null,
-  hackathon?.project
+  hackathon?.highlights[0]
     ? {
         label: "Innovation",
-        title: hackathon.project,
-        context: hackathon.title,
-        detail: hackathon.type,
+        title: hackathon.title,
+        context: hackathon.type,
+        detail: hackathon.highlights[0],
       }
     : null,
 ].filter((item): item is Dimension => item !== null);

@@ -22,7 +22,7 @@ export function ProjectBrowserPreview({ project }: ProjectBrowserPreviewProps) {
           <span className="size-2.5 rounded-full bg-[#66d9a8]/75" />
         </div>
         <div className="mx-auto max-w-[70%] truncate rounded-full border border-border bg-background/70 px-4 py-1 font-mono text-[0.68rem] text-text-muted sm:text-xs">
-          {domain}
+          Illustrative preview · {domain}
         </div>
       </div>
 

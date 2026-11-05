@@ -16,10 +16,9 @@ export const experience = [
   {
     id: "smart-india-hackathon-2024",
     title: "Smart India Hackathon 2024",
-    project: "Farm-Market",
     type: "Hackathon / Innovation Experience",
     year: "2024",
-    highlights: ["Developed Farm-Market as an innovation prototype"],
+    highlights: ["Developed an innovation prototype"],
     visible: true,
   },
   {

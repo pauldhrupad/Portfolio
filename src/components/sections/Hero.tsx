@@ -5,10 +5,9 @@ import { ButtonLink } from "@/components/ui/Button";
 import { SocialLink } from "@/components/ui/SocialLink";
 import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
+import { hasPublishedCaseStudy } from "@/lib/projects";
 
-const featuredProject = projects.find(
-  (project) => project.featured && project.caseStudy,
-);
+const featuredProject = projects.find((project) => project.featured);
 
 export function Hero() {
   return (
@@ -77,7 +76,11 @@ export function Hero() {
                   <span aria-hidden="true">/</span>
                   <a
                     className="inline-flex items-center gap-1.5 font-semibold text-text-primary underline decoration-border-strong underline-offset-4 transition-colors duration-[var(--duration-fast)] hover:text-accent-primary focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-primary"
-                    href={`/projects/${featuredProject.slug}`}
+                    href={
+                      hasPublishedCaseStudy(featuredProject)
+                        ? `/projects/${featuredProject.slug}`
+                        : featuredProject.demo ?? featuredProject.github
+                    }
                   >
                     {featuredProject.title}
                     <ArrowUpRight aria-hidden="true" className="size-3.5" />

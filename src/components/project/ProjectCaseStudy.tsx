@@ -5,14 +5,14 @@ import { SectionReveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { TechBadge } from "@/components/ui/TechBadge";
-import type { Project } from "@/types/portfolio";
+import type { CoordinationCaseStudy, Project } from "@/types/portfolio";
 import { ArchitectureDiagram } from "./ArchitectureDiagram";
 import { CaseStudySection } from "./CaseStudySection";
 import { ProjectBrowserPreview } from "./ProjectBrowserPreview";
 import { WorkflowDiagram } from "./WorkflowDiagram";
 
 type ProjectCaseStudyProps = {
-  project: Project & { caseStudy: NonNullable<Project["caseStudy"]> };
+  project: Project & { caseStudy: CoordinationCaseStudy };
 };
 
 export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {

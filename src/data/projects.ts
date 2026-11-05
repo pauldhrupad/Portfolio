@@ -1,13 +1,52 @@
 import type { Project } from "@/types/portfolio";
 
-export const projects = [
+export const projects: Project[] = [
+  {
+    slug: "gharkabite",
+    title: "GharKaBite",
+    shortDescription:
+      "A food ordering platform for customizable thalis, cart and checkout, order tracking, and kitchen administration with manual UPI verification.",
+    longDescription:
+      "A Next.js application connecting a customer storefront to a kitchen admin dashboard. Customers customize thalis, manage a cart, and track orders stored in MongoDB. Auth.js handles sign-in, while the server validates menu availability, delivery, pricing, and order transitions. Online orders require manual UPI payment verification by an admin. Subscription management supports plan offerings, meal credits, and pause, resume, and cancellation workflows. Plan purchases use a separate preview flow that collects no money.",
+    category: "Full-Stack Food Ordering Platform",
+    technologies: [
+      "Next.js",
+      "React",
+      "JavaScript",
+      "Tailwind CSS",
+      "Auth.js",
+      "bcryptjs",
+      "MongoDB",
+      "Mongoose",
+      "Cloudinary",
+      "Geoapify",
+      "Leaflet",
+      "Vitest",
+    ],
+    homepageTechnologies: ["Next.js", "React", "Auth.js", "MongoDB", "Mongoose"],
+    previewEyebrow: "Kitchen and storefront",
+    previewTitle: "Food ordering overview",
+    previewFeatures: ["Customizable thalis", "Cart and checkout", "Order tracking", "Kitchen dashboard"],
+    featured: true,
+    github: "https://github.com/pauldhrupad/GharKaBite",
+    demo: "https://gharkabite.vercel.app",
+    highlights: [
+      "Configurable thalis with required choices and optional add-ons",
+      "Admin menu management, daily availability, and preparation tools",
+      "Cart, server-calculated checkout, and MongoDB order persistence",
+      "Auth.js sign-in and server-side admin authorization",
+      "Manual UPI proof review and admin confirmation or rejection",
+      "Subscription management and meal credits, with preview-only plan purchases",
+    ],
+    status: "prototype",
+  },
   {
     slug: "co-parenting-coordinator",
     title: "Co-Parenting Coordinator",
     shortDescription:
       "A shared workspace for separated parents to coordinate custody schedules, shared expenses, communication, approvals and disputes, and auditable family activity.",
     longDescription:
-      "A shared workspace for custody planning, expense workflows, family messages, notifications, exports, and append-only application records.",
+      "A family-scoped MERN workspace with JWT authentication and server-side membership checks. Parents coordinate custody events and swap requests, review shared expenses through proposed, approved, disputed, and settled states, and communicate through append-only messages. MongoDB transactions connect business changes to timestamped audit records. Email notifications and PDF/CSV exports support follow-up and portable review of family activity. Audit guarantees are enforced at the application layer.",
     category: "Full-Stack MERN Application",
     technologies: [
       "React",
@@ -36,7 +75,7 @@ export const projects = [
       "Activity history",
     ],
     previewTitle: "Coordination overview",
-    featured: true,
+    featured: false,
     github: "https://github.com/pauldhrupad/co-parenting-coordinator",
     demo: "https://co-parenting-coordinator.vercel.app",
     highlights: [
@@ -49,6 +88,7 @@ export const projects = [
     ],
     status: "completed",
     caseStudy: {
+      kind: "coordination",
       seoDescription:
         "A detailed case study of Co-Parenting Coordinator, a MERN application for custody scheduling, shared expenses, family communication, audit history, notifications, and exports.",
       heroSummary:
@@ -199,23 +239,28 @@ export const projects = [
     },
   },
   {
-    slug: "ai-powered-resume-screening-system",
-    title: "AI-Powered Resume Screening System",
+    slug: "4d-chess",
+    title: "4D Chess: Chess on a Cube",
     shortDescription:
-      "A résumé screening project whose scope and technical implementation are awaiting confirmation.",
-    category: "AI Project",
-    technologies: [],
+      "A chess variant on the 384-square surface of a 3D cube, with cross-face movement, local two-player and four-player modes, and optional heuristic CPU opponents.",
+    longDescription:
+      "A browser-based game built with React, TypeScript, and Three.js. Six 8-by-8 faces form a 384-square cube-surface board. A custom engine folds movement across edges and enforces team and king-safety rules. Players can orbit and zoom the board, inspect legal destinations, and follow move history. Local two-player matches and four-player team games support optional CPU seats driven by a lightweight move-scoring heuristic. Game state lives in the browser and resets on refresh.",
+    category: "Interactive 3D Strategy Game",
+    technologies: ["React", "TypeScript", "Three.js", "Vite", "Tailwind CSS"],
+    homepageTechnologies: ["React", "TypeScript", "Three.js", "Vite"],
+    previewEyebrow: "Cube-surface chess",
+    previewTitle: "Six faces, 384 squares",
+    previewFeatures: ["Cross-face movement", "Two-player matches", "Four-player teams", "Optional CPU seats"],
     featured: false,
-  },
-  {
-    slug: "farm-market",
-    title: "Farm-Market",
-    shortDescription:
-      "A Smart India Hackathon 2024 innovation prototype. Detailed features and implementation information are pending verification.",
-    year: "2024",
-    category: "Hackathon / Innovation Project",
-    technologies: ["HTML", "CSS", "JavaScript", "React"],
-    featured: false,
+    github: "https://github.com/pauldhrupad/3d-Cube-Chess-Game",
+    highlights: [
+      "384 squares across six 8-by-8 cube faces",
+      "Custom movement rules that fold across cube edges",
+      "Local two-player and four-player team modes",
+      "Interactive Three.js board with orbit, zoom, and move animation",
+      "Legal-move guidance, check indicators, and move history",
+      "Optional CPU seats using a move-scoring heuristic",
+    ],
     status: "prototype",
   },
-] satisfies Project[];
+];

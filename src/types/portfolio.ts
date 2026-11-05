@@ -83,7 +83,7 @@ export type CaseStudyDeploymentItem = {
   platform: string;
 };
 
-export type ProjectCaseStudy = {
+type CaseStudyOverview = {
   seoDescription: string;
   heroSummary: string;
   context: string;
@@ -91,38 +91,59 @@ export type ProjectCaseStudy = {
   productGoal: string;
   technologyGroups: CaseStudyTechnologyGroup[];
   featureGroups: CaseStudyFeatureGroup[];
-  architecture: CaseStudyArchitecture;
-  authentication: string[];
-  custodyWorkflows: CaseStudyWorkflow[];
-  expenseWorkflows: CaseStudyWorkflow[];
-  communicationAudit: string[];
   testingPhilosophy: string;
   testingPractices: string[];
   deployment: CaseStudyDeploymentItem[];
   lessons: string[];
 };
 
+export type CoordinationCaseStudy = CaseStudyOverview & {
+  kind: "coordination";
+  architecture: CaseStudyArchitecture;
+  authentication: string[];
+  custodyWorkflows: CaseStudyWorkflow[];
+  expenseWorkflows: CaseStudyWorkflow[];
+  communicationAudit: string[];
+};
+
+export type ProjectCaseStudy =
+  | CoordinationCaseStudy
+  | (CaseStudyOverview & {
+      kind: "commerce";
+      architecture: CaseStudyArchitecture;
+      authentication: string[];
+      orderWorkflows: CaseStudyWorkflow[];
+      paymentVerification: string[];
+      subscriptions: string[];
+    })
+  | (CaseStudyOverview & {
+      kind: "game";
+      architecture: { client: string; engine: string; renderer: string };
+      gameplayWorkflows: CaseStudyWorkflow[];
+      cpuStrategy: string;
+    });
+
 export type Project = {
   slug: string;
   title: string;
   shortDescription: string;
-  longDescription?: string;
+  longDescription: string;
   year?: string;
   category: string;
   technologies: string[];
   homepageTechnologies?: string[];
-  previewEyebrow?: string;
-  previewFeatures?: string[];
-  previewTitle?: string;
+  previewEyebrow: string;
+  previewFeatures: string[];
+  previewTitle: string;
   featured: boolean;
-  github?: string;
+  github: string;
   demo?: string;
   cover?: string;
   screenshots?: string[];
-  highlights?: string[];
+  highlights: string[];
   challenge?: string;
   solution?: string;
-  status?: ProjectStatus;
+  status: ProjectStatus;
   caseStudy?: ProjectCaseStudy;
 };
 
