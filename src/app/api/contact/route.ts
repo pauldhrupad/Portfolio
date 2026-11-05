@@ -34,9 +34,20 @@ function isRateLimited(request: Request) {
   return false;
 }
 
+function matchesOrigin(request: Request, origin: string) {
+  const url = new URL(request.url);
+  // Next can use its listening hostname in request.url even for a different Host.
+  const host = request.headers.get("host") ?? url.host;
+  try {
+    return origin === new URL(`${url.protocol}//${host}`).origin;
+  } catch {
+    return false;
+  }
+}
+
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== new URL(request.url).origin) {
+  if (origin && !matchesOrigin(request, origin)) {
     return Response.json({ success: false, message: "Send the message from this website." }, { status: 403 });
   }
 

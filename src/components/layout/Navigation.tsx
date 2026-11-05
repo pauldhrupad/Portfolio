@@ -104,6 +104,7 @@ export function Navigation({ githubUrl, resumePath }: NavigationProps) {
             )}
             href={`/#${id}`}
             onClick={mobile ? closeMenu : undefined}
+            prefetch={false}
           >
             {label}
             {mobile && (
@@ -133,6 +134,7 @@ export function Navigation({ githubUrl, resumePath }: NavigationProps) {
               aria-label="DP — Dhrupad Paul home"
               className="flex size-11 shrink-0 items-center justify-center rounded-[var(--radius-sm)] border border-border bg-surface-recessed font-mono text-base font-semibold tracking-tight text-text-primary transition-colors hover:bg-surface-hover active:bg-surface-active"
               href="/#top"
+              prefetch={false}
               ref={brandRef}
             >
               DP<span aria-hidden="true" className="text-accent-primary">.</span>

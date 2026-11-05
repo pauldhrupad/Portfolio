@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
-import { SectionReveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { TechBadge } from "@/components/ui/TechBadge";
@@ -66,14 +65,14 @@ export function ProjectCaseStudy({ project, relatedProjects }: ProjectCaseStudyP
   const caseStudy = project.caseStudy;
 
   return (
-    <main className="pb-[var(--space-section)] pt-28 sm:pt-36">
+    <main className="pb-[var(--space-section)] pt-28 sm:pt-36" id="main-content" tabIndex={-1}>
       <Container size="wide">
-        <Link className="inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-semibold text-text-secondary hover:text-text-primary" href="/#projects">
+        <Link className="inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-semibold text-text-secondary hover:text-text-primary" href="/#projects" prefetch={false}>
           <ArrowLeft aria-hidden="true" className="size-4" /> Back to Projects
         </Link>
 
         <div className="mt-8 grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-12">
-          <SectionReveal distance={10}>
+          <div>
             <div className="flex flex-wrap gap-2">
               <Badge variant="accent">{project.category}</Badge>
               <Badge variant={project.status === "completed" ? "success" : "neutral"}>{project.status.replace("-", " ")}</Badge>
@@ -90,10 +89,10 @@ export function ProjectCaseStudy({ project, relatedProjects }: ProjectCaseStudyP
                 </ButtonLink>
               )}
             </div>
-          </SectionReveal>
-          <SectionReveal delay={0.06} distance={10} className="group/project min-w-0">
+          </div>
+          <div className="group/project min-w-0">
             <ProjectBrowserPreview priority project={project} />
-          </SectionReveal>
+          </div>
         </div>
 
         <details className="mt-10 rounded-[var(--radius-md)] border border-border bg-surface">

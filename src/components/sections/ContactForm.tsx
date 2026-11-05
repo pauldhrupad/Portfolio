@@ -25,7 +25,7 @@ const initialFields: ContactFields = {
 };
 
 const fieldClassName =
-  "contact-input min-h-13 w-full rounded-[var(--radius-sm)] border border-border px-4 py-3 text-base text-text-primary outline-none transition-[border-color,background-color,box-shadow] duration-[var(--duration-fast)] placeholder:text-text-muted/75 hover:border-border-strong focus:border-accent-primary";
+  "contact-input min-h-13 w-full rounded-[var(--radius-sm)] border border-border-emphasis px-4 py-3 text-base text-text-primary outline-none transition-[border-color,background-color,box-shadow] duration-[var(--duration-fast)] placeholder:text-text-muted hover:border-accent-primary focus:border-accent-primary";
 
 function findFirstError(form: HTMLFormElement, errors: ContactErrors) {
   const field = contactFieldNames.find((name) => errors[name]);
@@ -234,21 +234,12 @@ export function ContactForm({ email }: { email: string }) {
           </Button>
         </div>
       </fieldset>
-      {feedback ? (
-        <p
-          aria-live={status === "error" ? "assertive" : "polite"}
-          className={cn(
-            "max-w-md text-sm leading-6",
-            status === "success" ? "text-success" : "text-[var(--error)]",
-          )}
-          role={status === "error" ? "alert" : "status"}
-        >
-          {status === "success" ? (
-            <CheckCircle2 aria-hidden="true" className="mr-2 inline size-4" />
-          ) : null}
-          {feedback}
-        </p>
-        ) : null}
+      <p aria-atomic="true" className={cn("max-w-md text-sm leading-6 text-[var(--error)]", status !== "error" && "sr-only")} role="alert">
+        {status === "error" ? feedback : ""}
+      </p>
+      <p aria-atomic="true" className={cn("max-w-md text-sm leading-6 text-success", status !== "success" && "sr-only")} role="status">
+        {status === "success" && <><CheckCircle2 aria-hidden="true" className="mr-2 inline size-4" />{feedback}</>}
+      </p>
       <p className="border-t border-border pt-4 text-sm leading-7 text-text-secondary">
         Prefer email? <a className="inline-flex min-h-11 items-center rounded-sm font-semibold text-accent-primary hover:underline" href={`mailto:${email}`}>Email me directly</a>.
       </p>

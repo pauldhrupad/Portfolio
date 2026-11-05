@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-[72svh] items-center py-[var(--space-section)]">
+    <main className="flex min-h-[72svh] items-center py-[var(--space-section)]" id="main-content" tabIndex={-1}>
       <Container size="narrow">
         <div className="neu-panel mx-auto max-w-3xl rounded-[var(--radius-xl)] border border-border p-7 text-center sm:p-12">
           <p className="font-mono text-sm font-medium uppercase tracking-[0.16em] text-accent-primary">

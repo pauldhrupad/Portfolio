@@ -6,7 +6,7 @@ import { TechBadge } from "@/components/ui/TechBadge";
 import { creativeCredentials } from "@/data/creative";
 import { education } from "@/data/education";
 import { profile } from "@/data/profile";
-import { primarySkillConstellation } from "@/data/skills";
+import { primarySkills } from "@/data/skills";
 import { AboutIdentity } from "./AboutIdentity";
 
 const currentEducation = education.find((entry) => entry.featured);
@@ -41,7 +41,7 @@ export function About() {
                 </p>
               </div>
               <div aria-label="Current toolkit" className="mt-6 flex flex-wrap gap-2 border-t border-border pt-5">
-                {primarySkillConstellation.map((node) => <TechBadge key={node.skill}>{node.skill}</TechBadge>)}
+                {primarySkills.map((skill) => <TechBadge key={skill}>{skill}</TechBadge>)}
               </div>
             </article>
           </SectionReveal>

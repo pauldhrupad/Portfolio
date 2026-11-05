@@ -85,6 +85,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
       </head>
       <body>
+        <a className="sr-only rounded-[var(--radius-sm)] bg-action px-4 py-3 font-semibold text-action-text focus:not-sr-only focus:fixed focus:top-3 focus:left-[var(--space-gutter)] focus:z-[60]" href="#main-content">
+          Skip to content
+        </a>
         <ThemeProvider>
           <Navigation
             githubUrl={profile.socialLinks.github}

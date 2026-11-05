@@ -85,6 +85,13 @@ test("absent delivery configuration returns 503", async () => {
   await failure(await route().POST(request()), 503);
 });
 
+test("origin validation uses the actual Host when Next normalizes the request hostname", async () => {
+  const headers = { Host: "preview.example:443", Origin: "https://preview.example" };
+  await failure(await route().POST(request(JSON.stringify(valid), headers)), 503);
+  await failure(await route().POST(request(JSON.stringify(valid), { ...headers, Origin: "http://preview.example" })), 403);
+  await failure(await route().POST(request(JSON.stringify(valid), { ...headers, Origin: "https://other.example" })), 403);
+});
+
 test("provider rejection, timeouts and missing receipts never report success or leak upstream details", async () => {
   const responses = [
     () => Response.json({ error: configured.RESEND_API_KEY }, { status: 401 }),

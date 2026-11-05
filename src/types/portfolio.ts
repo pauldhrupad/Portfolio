@@ -36,12 +36,6 @@ export type SkillGroup = {
   projectSlugs: string[];
 };
 
-export type SkillConstellationNode = {
-  skill: string;
-  label: string;
-  position: string;
-};
-
 export type Education = {
   institution: string;
   qualification: string;

@@ -1,4 +1,4 @@
-import type { SkillConstellationNode, SkillGroup } from "@/types/portfolio";
+import type { SkillGroup } from "@/types/portfolio";
 
 export const skillGroups = [
   {
@@ -62,10 +62,4 @@ export const skillGroups = [
   },
 ] satisfies SkillGroup[];
 
-export const primarySkillConstellation = [
-  { skill: "React.js", label: "React", position: "left-1/2 top-[12%] -translate-x-1/2" },
-  { skill: "JavaScript", label: "JavaScript", position: "left-[7%] top-[42%]" },
-  { skill: "Express.js", label: "Express", position: "right-[7%] top-[42%]" },
-  { skill: "Node.js", label: "Node.js", position: "bottom-[10%] left-[21%]" },
-  { skill: "MongoDB", label: "MongoDB", position: "bottom-[10%] right-[21%]" },
-] satisfies SkillConstellationNode[];
+export const primarySkills = ["React", "JavaScript", "Express", "Node.js", "MongoDB"];

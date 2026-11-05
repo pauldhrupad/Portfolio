@@ -12,7 +12,7 @@ export function Footer() {
       <Container size="wide">
         <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-12">
           <div className="flex items-start gap-4">
-            <Link aria-label="DP — Dhrupad Paul home" className="flex size-11 shrink-0 items-center justify-center rounded-[var(--radius-sm)] border border-border-strong bg-surface font-mono font-semibold hover:border-accent-primary" href="/#top">
+            <Link aria-label="DP — Dhrupad Paul home" className="flex size-11 shrink-0 items-center justify-center rounded-[var(--radius-sm)] border border-border-strong bg-surface font-mono font-semibold hover:border-accent-primary" href="/#top" prefetch={false}>
               DP<span aria-hidden="true" className="text-accent-primary">.</span>
             </Link>
             <div>
@@ -23,9 +23,9 @@ export function Footer() {
 
           <nav aria-label="Footer navigation">
             <ul className="grid grid-cols-2 gap-x-8 gap-y-1 sm:grid-cols-3">
-              <li><Link className={linkClassName} href="/#about">About</Link></li>
-              <li><Link className={linkClassName} href="/#projects">Projects</Link></li>
-              <li><Link className={linkClassName} href="/#contact">Contact</Link></li>
+              <li><Link className={linkClassName} href="/#about" prefetch={false}>About</Link></li>
+              <li><Link className={linkClassName} href="/#projects" prefetch={false}>Projects</Link></li>
+              <li><Link className={linkClassName} href="/#contact" prefetch={false}>Contact</Link></li>
               <li><a className={linkClassName} href={`mailto:${profile.email}`}><Mail aria-hidden="true" className="size-3.5" />Email</a></li>
               <li><a className={linkClassName} href={profile.socialLinks.github} rel="noreferrer" target="_blank">GitHub<ArrowUpRight aria-hidden="true" className="size-3.5" /></a></li>
               <li><a className={linkClassName} download href={profile.resumePath}><FileText aria-hidden="true" className="size-3.5" />Résumé</a></li>
@@ -38,7 +38,7 @@ export function Footer() {
 
         <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-4">
           <p className="text-xs leading-6 text-text-muted">© {new Date().getFullYear()} {profile.name}</p>
-          <Link className={linkClassName} href="/#top">Back to top <ArrowUp aria-hidden="true" className="size-4" /></Link>
+          <Link className={linkClassName} href="/#top" prefetch={false}>Back to top <ArrowUp aria-hidden="true" className="size-4" /></Link>
         </div>
       </Container>
     </footer>

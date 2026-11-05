@@ -30,7 +30,7 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
           >
             <ProjectBrowserPreview
               project={project}
-              sizes={index === 0 ? "(min-width: 1024px) 55vw, 100vw" : "(min-width: 1024px) 50vw, 100vw"}
+              sizes={index === 0 ? "(min-width: 88rem) 44rem, (min-width: 64rem) 50vw, 93vw" : "(min-width: 88rem) 38rem, (min-width: 64rem) 43vw, 93vw"}
             />
             <div className="flex min-w-0 flex-1 flex-col">
               <div className="flex flex-wrap items-center justify-between gap-3">

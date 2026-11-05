@@ -176,7 +176,6 @@ body {
 
 /* Existing sections continue to use these surface classes. */
 .neu-panel { background: var(--surface); box-shadow: var(--shadow-raised); }
-.glass-panel { background: var(--surface-elevated); border: 1px solid var(--border); }
 
 .theme-moon,
 [data-theme="dark"] .theme-sun { display: none; }
